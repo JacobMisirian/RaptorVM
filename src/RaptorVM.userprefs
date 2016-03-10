@@ -1,0 +1,14 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="RaptorDisassembler/Disassembler.cs">
+    <Files>
+      <File FileName="RaptorDisassembler/Program.cs" Line="10" Column="55" />
+      <File FileName="RaptorDisassembler/Disassembler.cs" Line="58" Column="33" />
+      <File FileName="RaptorDisassembler/OpCodes.cs" Line="37" Column="63" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

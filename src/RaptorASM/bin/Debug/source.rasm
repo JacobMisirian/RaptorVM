@@ -1,0 +1,4 @@
+Load_Immediate a, 3
+Load_Immediate b, 2
+Add a, b
+Print a
