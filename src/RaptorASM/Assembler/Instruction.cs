@@ -21,12 +21,10 @@ namespace RaptorASM
         public void Encode(BinaryWriter writer)
         {
             writer.Write(OpCode);
-            writer.Write(OperandOne);
-            writer.Write(OperandTwo);
+            writer.Write((byte)((OperandOne << 4) | OperandTwo));
             writer.Write(Immediate);
 
             writer.Flush();
         }
     }
 }
-

@@ -33,4 +33,7 @@
   <ItemGroup>
     <Compile Include="main.c" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="opcodes.h" />
+  </ItemGroup>
 </Project>
