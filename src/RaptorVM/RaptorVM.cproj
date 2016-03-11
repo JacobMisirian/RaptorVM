@@ -32,8 +32,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="main.c" />
+    <Compile Include="raptor_vm.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="opcodes.h" />
+    <None Include="raptor_context.h" />
+    <None Include="raptor_vm.h" />
+    <None Include="raptor_instruction.h" />
   </ItemGroup>
 </Project>

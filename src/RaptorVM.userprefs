@@ -1,11 +1,25 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RaptorDisassembler/Disassembler.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RaptorASM/Assembler/Assembler.cs">
     <Files>
-      <File FileName="RaptorDisassembler/Program.cs" Line="10" Column="55" />
-      <File FileName="RaptorDisassembler/Disassembler.cs" Line="58" Column="33" />
       <File FileName="RaptorDisassembler/OpCodes.cs" Line="37" Column="63" />
+      <File FileName="RaptorVM/main.c" Line="9" Column="2" />
+      <File FileName="RaptorVM/opcodes.h" Line="11" Column="22" />
+      <File FileName="RaptorASM/Assembler/Assembler.cs" Line="1" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="RaptorASM" expanded="True">
+            <Node name="Assembler" expanded="True">
+              <Node name="Assembler.cs" selected="True" />
+            </Node>
+          </Node>
+          <Node name="RaptorDisassembler" expanded="True" />
+          <Node name="RaptorVM" expanded="True" />
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
