@@ -1,5 +1,4 @@
-Load_Immediate a, 1
-Load_Immediate b, 1
-.main
-Add a, b
+Load_Immediate a, 10
+Load_Immediate b, 6
+Xor a, b
 Print a

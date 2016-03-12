@@ -42,6 +42,11 @@ namespace RaptorASM
                     case OpCodes.Div:
                     case OpCodes.Mod:
                     case OpCodes.Mov:
+                    case OpCodes.Shift_Left:
+                    case OpCodes.Shift_Right:
+                    case OpCodes.And:
+                    case OpCodes.Or:
+                    case OpCodes.Xor:
                         registerOne = getRegister(expectToken(TokenType.Identifier).Value);
                         expectToken(TokenType.Comma);
                         registerTwo = getRegister(expectToken(TokenType.Identifier).Value);

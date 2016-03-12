@@ -83,5 +83,20 @@ static void decode_instruction(struct raptor_context *context, struct raptor_ins
 			// Set the IP to the immediate (label).
 			context->registers[15] = instruction->immediate;
 			break;
+		case OP_SHIFT_LEFT:
+			context->registers[instruction->operandOne] <<= context->registers[instruction->operandTwo];
+			break;
+		case OP_SHIFT_RIGHT:
+			context->registers[instruction->operandOne] >>= context->registers[instruction->operandTwo];
+			break;
+		case OP_AND:
+			context->registers[instruction->operandOne] &= context->registers[instruction->operandTwo];
+			break;
+		case OP_OR:
+			context->registers[instruction->operandOne] |= context->registers[instruction->operandTwo];
+			break;
+		case OP_XOR:
+			context->registers[instruction->operandOne] ^= context->registers[instruction->operandTwo];
+			break;
 	}
 }
