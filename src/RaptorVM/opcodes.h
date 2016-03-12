@@ -16,5 +16,14 @@
 #define OP_AND 0x0C
 #define OP_OR 0x0D
 #define OP_XOR 0x0E
+#define OP_NOT 0x0F
+#define OP_CMP 0x10
+#define OP_JE 0x11
+#define OP_JNE 0x12
+#define OP_JG 0x13
+#define OP_JGE 0x14
+#define OP_JL 0x15
+#define OP_JLE 0x16
+#define OP_PRINT_CHAR 0x17
 
 #endif

@@ -1,4 +1,9 @@
-Load_Immediate a, 10
-Load_Immediate b, 6
-Xor a, b
+Load_Immediate a, 1
+Load_Immediate b, 1
+Load_Immediate c, 10
+.main
+Add a, b
 Print a
+Print_Char c
+Cmp a, c
+Jne main

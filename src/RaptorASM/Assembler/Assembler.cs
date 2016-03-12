@@ -47,10 +47,15 @@ namespace RaptorASM
                     case OpCodes.And:
                     case OpCodes.Or:
                     case OpCodes.Xor:
+                    case OpCodes.Cmp:
                         registerOne = getRegister(expectToken(TokenType.Identifier).Value);
                         expectToken(TokenType.Comma);
                         registerTwo = getRegister(expectToken(TokenType.Identifier).Value);
                         new Instruction(opcode, registerOne, registerTwo).Encode(writer);
+                        break;
+                    case OpCodes.Not:
+                        registerOne = getRegister(expectToken(TokenType.Identifier).Value);
+                        new Instruction(opcode, registerOne).Encode(writer);
                         break;
                     case OpCodes.Load_Immediate:
                         registerOne = getRegister(expectToken(TokenType.Identifier).Value);
@@ -59,11 +64,18 @@ namespace RaptorASM
                         new Instruction(opcode, registerOne, 0, immediate).Encode(writer);
                         break;
                     case OpCodes.Print:
+                    case OpCodes.Print_Char:
                         new Instruction(opcode, getRegister(expectToken(TokenType.Identifier).Value)).Encode(writer);
                         break;
                     case OpCodes.Jmp:
+                    case OpCodes.Je:
+                    case OpCodes.Jne:
+                    case OpCodes.Jl:
+                    case OpCodes.Jle:
+                    case OpCodes.Jg:
+                    case OpCodes.Jge:
                         references.Add(new LabelReference(expectToken(TokenType.Identifier).Value, writer.BaseStream.Position));
-                        new Instruction(OpCodes.Jmp).Encode(writer);
+                        new Instruction(opcode).Encode(writer);
                         break;
                 }
             }
