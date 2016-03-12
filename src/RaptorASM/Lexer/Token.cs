@@ -18,7 +18,8 @@ namespace RaptorASM
     {
         Comma,
         Identifier,
-        Number
+        Number,
+        Dot
     }
 }
 

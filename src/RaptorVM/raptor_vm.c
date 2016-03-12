@@ -68,5 +68,8 @@ static void decode_instruction(struct raptor_context *context, struct raptor_ins
 		case OP_PRINT:
 			printf("%d", context->registers[instruction->operandOne]);
 			break;
+		case OP_JMP:
+			context->registers[15] = instruction->immediate;
+			break;
 	}
 }

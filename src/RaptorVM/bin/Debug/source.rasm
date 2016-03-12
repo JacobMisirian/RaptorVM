@@ -1,4 +1,6 @@
-Load_Immediate a, 25
-Load_Immediate b, 20
-Sub a, b
+Load_Immediate a, 1
+Load_Immediate b, 1
+.main
+Add a, b
 Print a
+Jmp main

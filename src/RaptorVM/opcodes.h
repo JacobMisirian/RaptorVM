@@ -9,5 +9,6 @@
 #define OP_MOV 0x06
 #define OP_LOAD_IMMEDIATE 0x07
 #define OP_PRINT 0x08
+#define OP_JMP 0x09
 
 #endif

@@ -39,6 +39,7 @@
     <Compile Include="Assembler\Assembler.cs" />
     <Compile Include="Assembler\Instruction.cs" />
     <Compile Include="Assembler\OpCodes.cs" />
+    <Compile Include="Assembler\LabelReference.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

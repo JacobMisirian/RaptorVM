@@ -7,6 +7,8 @@ namespace RaptorASM
     public class Assembler
     {
         private List<Token> tokens;
+        private Dictionary<string, long> labels = new Dictionary<string, long>();
+        private List<LabelReference> references = new List<LabelReference>();
         private BinaryWriter writer;
         private int position = 0;
 
@@ -19,8 +21,15 @@ namespace RaptorASM
         {
             writer = new BinaryWriter(new StreamWriter(outputPath).BaseStream);
 
-            for (position = 0; position < tokens.Count;     )
+            for (position = 0; position < tokens.Count;)
             {
+                if (tokens[position].TokenType == TokenType.Dot)
+                {
+                    position++;
+                    labels.Add(expectToken(TokenType.Identifier).Value, writer.BaseStream.Position);
+                    continue;
+                }
+
                 byte opcode = OpCodes.ToByte(expectToken(TokenType.Identifier).Value);
                 byte registerOne;
                 byte registerTwo;
@@ -47,7 +56,17 @@ namespace RaptorASM
                     case OpCodes.Print:
                         new Instruction(opcode, getRegister(expectToken(TokenType.Identifier).Value)).Encode(writer);
                         break;
+                    case OpCodes.Jmp:
+                        references.Add(new LabelReference(expectToken(TokenType.Identifier).Value, writer.BaseStream.Position));
+                        new Instruction(OpCodes.Jmp).Encode(writer);
+                        break;
                 }
+            }
+
+            foreach (LabelReference reference in references)
+            {
+                writer.BaseStream.Position = reference.Position + 2;
+                writer.Write((short)labels[reference.Name]);
             }
         }
 

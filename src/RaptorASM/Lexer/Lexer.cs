@@ -28,6 +28,9 @@ namespace RaptorASM
                         case ',':
                             result.Add(new Token(TokenType.Comma, ((char)readChar()).ToString()));
                             break;
+                        case '.':
+                            result.Add(new Token(TokenType.Dot, ((char)readChar()).ToString()));
+                            break;
                         default:
                             Console.WriteLine("Unknown char: " + (char)readChar());
                             break;

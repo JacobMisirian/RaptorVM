@@ -12,6 +12,7 @@ namespace RaptorASM
         public const byte Mov = 0x06;
         public const byte Load_Immediate = 0x07;
         public const byte Print = 0x08;
+        public const byte Jmp = 0x09;
 
         public static byte ToByte(string instructionString)
         {
@@ -33,6 +34,8 @@ namespace RaptorASM
                     return Load_Immediate;
                 case "Print":
                     return Print;
+                case "Jmp":
+                    return Jmp;
                 default:
                     throw new Exception("Unknown identifier: " + instructionString);
             }
