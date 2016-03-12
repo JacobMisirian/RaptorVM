@@ -3,4 +3,3 @@ Load_Immediate b, 1
 .main
 Add a, b
 Print a
-Jmp main

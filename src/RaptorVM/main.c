@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <sys/stat.h>
-#include "opcodes.h"
 #include "raptor_context.h"
 #include "raptor_vm.h"
 
@@ -15,7 +14,8 @@ int main (int argc, char *argv[]) {
 		init_raptor_vm(&context, 0xFFFF);
 		// Execute the VM with the file path argument.
 		run_raptor_vm(&context, argv[1]);
-		
+		// Deconstruct.
+		destroy_raptor_vm(&context);
 		return 0;
 	}
 	return 1;

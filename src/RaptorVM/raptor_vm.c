@@ -25,8 +25,10 @@ void run_raptor_vm(struct raptor_context *context, char *file_path) {
 	// Put the file in context->ram.
 	read_file_to_ram(context, file_path);
 	// Set the IP to 0.
-	context->registers[15] = context->ramSize - context->ramSize;
+	context->registers[15] = 0;
 	struct raptor_instruction *instruction;
+	// Set opcode to a default of 1 so that it doesn't default to 0 and not execute.
+	instruction->opcode = 1;
 	// While the program still exists.
 	while (instruction->opcode != 0) {
 		// Read from the virtual RAM into an instruction struct.
