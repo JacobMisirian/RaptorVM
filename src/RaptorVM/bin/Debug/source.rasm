@@ -1,0 +1,4 @@
+Load_Immediate a, 25
+Load_Immediate b, 20
+Sub a, b
+Print a

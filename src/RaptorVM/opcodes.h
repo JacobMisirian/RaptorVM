@@ -7,7 +7,7 @@
 #define OP_DIV 0x04
 #define OP_MOD 0x05
 #define OP_MOV 0x06
-#define OP_MOVE_IMMEDIATE 0x07
+#define OP_LOAD_IMMEDIATE 0x07
 #define OP_PRINT 0x08
 
 #endif
