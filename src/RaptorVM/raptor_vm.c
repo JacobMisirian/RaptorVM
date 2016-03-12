@@ -5,31 +5,39 @@
 #include "raptor_instruction.h"
 #include "raptor_vm.h"
 
+// Local method declarations.
 static void read_file_to_ram(struct raptor_context *context, char *file_path);
 static void decode_instruction(struct raptor_context *context, struct raptor_instruction *instruction);
 
-void init_raptor_vm(struct raptor_context *context) {
+// Constructor.
+void init_raptor_vm(struct raptor_context *context, size_t size) {
 	// Initialize RAM with some blank values.
-	context->ram = (char*)malloc(0xFFFF);
+	context->ram = (char*)malloc(size);
+	context->ramSize = &size;
 }
-
+// Deconstructor.
 void destroy_raptor_vm(struct raptor_context *context) {
 	// Free the RAM.
 	free(context->ram);
 }
-
+// The main method that takes in the context and path.
 void run_raptor_vm(struct raptor_context *context, char *file_path) {
+	// Put the file in context->ram.
 	read_file_to_ram(context, file_path);
-	
-	context->registers[15] = 0x0000;
+	// Set the IP to 0.
+	context->registers[15] = context->ramSize - context->ramSize;
 	struct raptor_instruction *instruction;
+	// While the program still exists.
 	while (instruction->opcode != 0) {
+		// Read from the virtual RAM into an instruction struct.
 		instruction = (struct raptor_instruction*)(&context->ram[context->registers[15]]);
+		// Increase the value of the IP by 4 (length of an instruction).
 		context->registers[15] += 4;
+		// Actually execute the instruction.
 		decode_instruction(context, instruction);
 	}
 }
-
+// Reads the file into the virtual RAM at context->ram.
 static void read_file_to_ram(struct raptor_context *context, char *file_path) {
 	FILE *file;
 	long filelen;
@@ -41,6 +49,7 @@ static void read_file_to_ram(struct raptor_context *context, char *file_path) {
 	fclose(file);
 }
 
+// Interprets an instruction.
 static void decode_instruction(struct raptor_context *context, struct raptor_instruction *instruction) {
 	//printf("OperandOne:%d\tOperandTwo:%d\tImmediate:%d\n", instruction->operandOne, instruction->operandTwo, instruction->immediate);
 	switch (instruction->opcode) {
@@ -69,6 +78,7 @@ static void decode_instruction(struct raptor_context *context, struct raptor_ins
 			printf("%d", context->registers[instruction->operandOne]);
 			break;
 		case OP_JMP:
+			// Set the IP to the immediate (label).
 			context->registers[15] = instruction->immediate;
 			break;
 	}

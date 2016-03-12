@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
+// Holds the RAM and Registers.
 struct raptor_context {
 	size_t *ramSize;
 	char *ram;

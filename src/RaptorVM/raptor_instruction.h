@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
+// Represents an instruction.
 struct raptor_instruction {
 	uint8_t opcode;
 	uint8_t operandTwo : 4;

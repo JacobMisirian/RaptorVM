@@ -3,7 +3,9 @@
 
 #include "raptor_context.h"
 
-void init_raptor_vm(struct raptor_context *context);
+// Constructor.
+void init_raptor_vm(struct raptor_context *context, size_t size);
+// Deconstructor.
 void run_raptor_vm(struct raptor_context *context, char *file_path);
 
 #endif
