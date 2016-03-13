@@ -27,6 +27,12 @@ namespace RaptorASM
         public const byte Jl = 0x15;
         public const byte Jle = 0x16;
         public const byte Print_Char = 0x17;
+        public const byte Load_Byte = 0x18;
+        public const byte Load_Word = 0x19;
+        public const byte Store_Byte = 0x1A;
+        public const byte Store_Word = 0x1B;
+        public const byte Inc = 0x1C;
+        public const byte Dec = 0x1D;
 
         public static byte ToByte(string instructionString)
         {
@@ -78,6 +84,18 @@ namespace RaptorASM
                     return Jle;
                 case "Print_Char":
                     return Print_Char;
+                case "Load_Byte":
+                    return Load_Byte;
+                case "Load_Word":
+                    return Load_Word;
+                case "Store_Byte":
+                    return Store_Byte;
+                case "Store_Word":
+                    return Store_Word;
+                case "Inc":
+                    return Inc;
+                case "Dec":
+                    return Dec;
                 default:
                     throw new Exception("Unknown identifier: " + instructionString);
             }

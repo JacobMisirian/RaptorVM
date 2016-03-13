@@ -31,6 +31,9 @@ namespace RaptorASM
                         case '.':
                             result.Add(new Token(TokenType.Dot, ((char)readChar()).ToString()));
                             break;
+                        case '\"':
+                            result.Add(scanString());
+                            break;
                         default:
                             Console.WriteLine("Unknown char: " + (char)readChar());
                             break;
@@ -58,6 +61,16 @@ namespace RaptorASM
                 return new Token(TokenType.Number, result);
 
             return new Token(TokenType.Identifier, result);
+        }
+
+        private Token scanString()
+        {
+            string result = "";
+            position++;
+            while (peekChar() != -1 && ((char)peekChar()) != '\"')
+                result += (char)readChar();
+            position++;
+            return new Token(TokenType.String, result);
         }
 
         private int peekChar(int n = 0)

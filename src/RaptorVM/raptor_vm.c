@@ -112,7 +112,6 @@ static void decode_instruction(struct raptor_context *context, struct raptor_ins
 			context->registers[instruction->operandOne] = set_flags(context, ~context->registers[instruction->operandOne]);
 			break;
 		case OP_CMP:
-		//printf("Cmp here: One %d Two %d\n", context->registers[instruction->operandOne] & 0xFFFF, context->registers[instruction->operandTwo] & 0xFFFF); 
 			set_flags(context, context->registers[instruction->operandOne] - context->registers[instruction->operandTwo]);
 			break;
 		case OP_JE:
@@ -131,18 +130,36 @@ static void decode_instruction(struct raptor_context *context, struct raptor_ins
 			if ((FLAGS & SIGN_FLAG) || (FLAGS & ZERO_FLAG))
 				IP = instruction->immediate;
 			break;
+		case OP_LOAD_BYTE:
+			context->registers[instruction->operandOne] = context->ram[context->registers[instruction->operandTwo]];
+			break;
+		case OP_LOAD_WORD:
+			context->registers[instruction->operandOne] = *((uint16_t*)(&context->ram[context->registers[instruction->operandTwo]]));
+			break;
+		case OP_STORE_BYTE:
+			context->ram[context->registers[instruction->operandOne]] = context->registers[instruction->operandTwo];
+			break;
+		case OP_STORE_WORD:
+			*((uint16_t*)(&context->ram[context->registers[instruction->operandOne]])) = context->registers[instruction->operandTwo];
+			break;
+		case OP_INC:
+			context->registers[instruction->operandOne]++;
+			break;
+		case OP_DEC:
+			context->registers[instruction->operandOne]--;
+			break;
 	}
 }
 
 static uint16_t set_flags(struct raptor_context *context, uint16_t value) {
 	if (value == 0)
-		context->registers[14] |= ZERO_FLAG;
+		FLAGS |= ZERO_FLAG;
 	else
-		context->registers[14] &= ~ZERO_FLAG;
+		FLAGS &= ~ZERO_FLAG;
 		
 	if (value < 0)
-		context->registers[14] |= SIGN_FLAG;
+		FLAGS |= SIGN_FLAG;
 	else if (value > 0)
-		context->registers[14] &= ~SIGN_FLAG;
+		FLAGS &= ~SIGN_FLAG;
 	return value;
 }

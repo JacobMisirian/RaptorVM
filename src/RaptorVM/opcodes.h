@@ -25,5 +25,11 @@
 #define OP_JL 0x15
 #define OP_JLE 0x16
 #define OP_PRINT_CHAR 0x17
+#define OP_LOAD_BYTE 0x18
+#define OP_LOAD_WORD 0x19
+#define OP_STORE_BYTE 0x1A
+#define OP_STORE_WORD 0x1B
+#define OP_INC 0x1C
+#define OP_DEC 0x1D
 
 #endif

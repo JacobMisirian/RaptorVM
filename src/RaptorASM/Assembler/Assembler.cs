@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace RaptorASM
 {
@@ -30,7 +31,17 @@ namespace RaptorASM
                     continue;
                 }
 
-                byte opcode = OpCodes.ToByte(expectToken(TokenType.Identifier).Value);
+                Token op = expectToken(TokenType.Identifier);
+
+                if (op.Value == "STRING")
+                {
+                    writer.Write(Encoding.ASCII.GetBytes(expectToken(TokenType.String).Value));
+                    writer.Write((byte)0);
+                    writer.Flush();
+                    continue;
+                }
+
+                byte opcode = OpCodes.ToByte(op.Value);
                 byte registerOne;
                 byte registerTwo;
                 short immediate;
@@ -48,6 +59,10 @@ namespace RaptorASM
                     case OpCodes.Or:
                     case OpCodes.Xor:
                     case OpCodes.Cmp:
+                    case OpCodes.Load_Byte:
+                    case OpCodes.Load_Word:
+                    case OpCodes.Store_Word:
+                    case OpCodes.Store_Byte:
                         registerOne = getRegister(expectToken(TokenType.Identifier).Value);
                         expectToken(TokenType.Comma);
                         registerTwo = getRegister(expectToken(TokenType.Identifier).Value);
@@ -60,11 +75,19 @@ namespace RaptorASM
                     case OpCodes.Load_Immediate:
                         registerOne = getRegister(expectToken(TokenType.Identifier).Value);
                         expectToken(TokenType.Comma);
-                        immediate = Convert.ToInt16(expectToken(TokenType.Number).Value);
+                        if (tokens[position].TokenType == TokenType.Identifier)
+                        {
+                            references.Add(new LabelReference(expectToken(TokenType.Identifier).Value, writer.BaseStream.Position));
+                            immediate = 0;
+                        }
+                        else
+                            immediate = Convert.ToInt16(expectToken(TokenType.Number).Value);
                         new Instruction(opcode, registerOne, 0, immediate).Encode(writer);
                         break;
                     case OpCodes.Print:
                     case OpCodes.Print_Char:
+                    case OpCodes.Inc:
+                    case OpCodes.Dec:
                         new Instruction(opcode, getRegister(expectToken(TokenType.Identifier).Value)).Encode(writer);
                         break;
                     case OpCodes.Jmp:

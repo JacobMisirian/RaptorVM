@@ -19,7 +19,8 @@ namespace RaptorASM
         Comma,
         Identifier,
         Number,
-        Dot
+        Dot,
+        String
     }
 }
 
