@@ -11,6 +11,7 @@
 
 #define IP context->registers[15]
 #define FLAGS context->registers[14]
+#define SP context->registers[13]
 
 // Local method declarations.
 static void read_file_to_ram(struct raptor_context *context, char *file_path);
@@ -60,7 +61,7 @@ static void read_file_to_ram(struct raptor_context *context, char *file_path) {
 
 // Interprets an instruction.
 static void decode_instruction(struct raptor_context *context, struct raptor_instruction *instruction) {
-	//printf("OperandOne:%d\tOperandTwo:%d\tImmediate:%d\n", instruction->operandOne, instruction->operandTwo, instruction->immediate);
+	//printf("OpCode:%d\tOperandOne:%d\tOperandTwo:%d\tImmediate:%d\n", instruction->opcode, instruction->operandOne, instruction->operandTwo, instruction->immediate);
 	switch (instruction->opcode) {
 		case OP_ADD:
 			context->registers[instruction->operandOne] = set_flags(context, context->registers[instruction->operandOne] + context->registers[instruction->operandTwo]);
@@ -80,14 +81,13 @@ static void decode_instruction(struct raptor_context *context, struct raptor_ins
 		case OP_MOV:
 			context->registers[instruction->operandOne] = context->registers[instruction->operandTwo];
 			break;
-		case OP_LOAD_IMMEDIATE:
-			context->registers[instruction->operandOne] = instruction->immediate;
-			break;
 		case OP_PRINT:
 			printf("%d", context->registers[instruction->operandOne]);
+			fflush(stdout);
 			break;
 		case OP_PRINT_CHAR:
 			printf("%c", context->registers[instruction->operandOne]);
+			fflush(stdout);
 			break;
 		case OP_JMP:
 			// Set the IP to the immediate (label).
@@ -147,6 +147,70 @@ static void decode_instruction(struct raptor_context *context, struct raptor_ins
 			break;
 		case OP_DEC:
 			context->registers[instruction->operandOne]--;
+			break;
+		case OP_PUSH:
+			SP -= 2;
+			*((uint16_t*)(&context->ram[SP])) = context->registers[instruction->operandOne];
+			break;
+		case OP_POP:
+			context->registers[instruction->operandOne] = *((uint16_t*)(&context->ram[SP]));
+			SP += 2;
+			break;
+		case OP_CALL:
+			SP -= 2;
+			*((uint16_t*)(&context->ram[SP])) = IP;
+			IP = instruction->immediate;
+			break;
+		case OP_RET:
+			IP = *((uint16_t*)(&context->ram[SP]));
+			SP += 2;
+			break;
+		case OP_LOAD_IMMEDIATE:
+			context->registers[instruction->operandOne] = instruction->immediate;
+			break;
+		case OP_ADD_IMMEDIATE:
+			context->registers[instruction->operandOne] = set_flags(context, context->registers[instruction->operandOne] + instruction->immediate);
+			break;
+		case OP_SUB_IMMEDIATE:
+			context->registers[instruction->operandOne] = set_flags(context, context->registers[instruction->operandOne] - instruction->immediate);
+			break;
+		case OP_MUL_IMMEDIATE:
+			context->registers[instruction->operandOne] = set_flags(context, context->registers[instruction->operandOne] * instruction->immediate);
+			break;
+		case OP_DIV_IMMEDIATE:
+			context->registers[instruction->operandOne] = set_flags(context, context->registers[instruction->operandOne] / instruction->immediate);
+			break;
+		case OP_MOD_IMMEDIATE:
+			context->registers[instruction->operandOne] = set_flags(context, context->registers[instruction->operandOne] % instruction->immediate);
+			break;
+		case OP_MOV_IMMEDIATE:
+			context->registers[instruction->operandOne] = instruction->immediate;
+			break;
+		case OP_PRINT_IMMEDIATE:
+			printf("%d", instruction->immediate);
+			fflush(stdout);
+			break;
+		case OP_PRINT_CHAR_IMMEDIATE:
+			printf("%c", instruction->immediate);
+			fflush(stdout);
+			break;
+		case OP_SHIFT_LEFT_IMMEDIATE:
+			context->registers[instruction->operandOne] = set_flags(context, instruction->operandOne << instruction->immediate);
+			break;
+		case OP_SHIFT_RIGHT_IMMEDIATE:
+			context->registers[instruction->operandOne] = set_flags(context, instruction->operandOne >> instruction->immediate);
+			break;
+		case OP_AND_IMMEDIATE:
+			context->registers[instruction->operandOne] = set_flags(context, instruction->operandOne & instruction->immediate);
+			break;
+		case OP_OR_IMMEDIATE:
+			context->registers[instruction->operandOne] = set_flags(context, instruction->operandOne | instruction->immediate);
+			break;
+		case OP_XOR_IMMEDIATE:
+			context->registers[instruction->operandOne] = set_flags(context, instruction->operandOne ^ instruction->immediate);
+			break;
+		case OP_CMP_IMMEDIATE:
+			set_flags(context, context->registers[instruction->operandOne] - instruction->immediate);
 			break;
 	}
 }

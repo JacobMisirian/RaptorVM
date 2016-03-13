@@ -1,9 +1,19 @@
 using System;
+using System.Collections.Generic;
 
 namespace RaptorASM
 {
     public class OpCodes
     {
+        public static List<string> instructions = new List<string>()
+        {
+            "Add", "Sub", "Mul", "Div", "Mod", "Mov", "Load_Immediate", "Print", "Jmp", "Shift_Left", "Shift_Right",
+            "And",  "Or", "Xor", "Not", "Cmp", "Je", "Jne", "Jg", "Jge", "Jl", "Jle", "Print_Char", "Load_Byte", "Load_Word",
+            "Store_Byte", "Store_Word", "Inc", "Dec", "Push", "Pop", "Call", "Ret", "Add_Immediate", "Sub_Immediate",
+            "Mul_Immediate", "Div_Immediate", "Mod_Immediate", "Mov_Immediate", "Print_Immediate", "Print_Char_Immediate",
+            "Shift_Left_Immediate", "Shift_Right_Immediate", "And_Immedate", "Or_Immediate", "Xor_Immediate", "Cmp_Immediate"
+        };
+
         public const byte Add = 0x01;
         public const byte Sub = 0x02;
         public const byte Mul = 0x03;
@@ -33,72 +43,28 @@ namespace RaptorASM
         public const byte Store_Word = 0x1B;
         public const byte Inc = 0x1C;
         public const byte Dec = 0x1D;
+        public const byte Push = 0x1E;
+        public const byte Pop = 0x1F;
+        public const byte Call = 0x20;
+        public const byte Ret = 0x21;
+        public const byte Add_Immediate = 0x22;
+        public const byte Sub_Immediate = 0x23;
+        public const byte Mul_Immediate = 0x24;
+        public const byte Div_Immediate = 0x25;
+        public const byte Mod_Immediate = 0x26;
+        public const byte Mov_Immediate = 0x27;
+        public const byte Print_Immediate = 0x28;
+        public const byte Print_Char_Immediate = 0x29;
+        public const byte Shift_Left_Immediate = 0x2A;
+        public const byte Shift_Right_Immediate = 0x2B;
+        public const byte And_Immediate = 0x2C;
+        public const byte Or_Immediate = 0x2D;
+        public const byte Xor_Immediate = 0x2E;
+        public const byte Cmp_Immediate = 0x2F;
 
         public static byte ToByte(string instructionString)
         {
-            switch (instructionString)
-            {
-                case "Add":
-                    return Add;
-                case "Sub":
-                    return Sub;
-                case "Mul":
-                    return Mul;
-                case "Div":
-                    return Div;
-                case "Mod":
-                    return Mod;
-                case "Mov":
-                    return Mov;
-                case "Load_Immediate":
-                    return Load_Immediate;
-                case "Print":
-                    return Print;
-                case "Jmp":
-                    return Jmp;
-                case "Shift_Left":
-                    return Shift_Left;
-                case "Shift_Right":
-                    return Shift_Right;
-                case "And":
-                    return And;
-                case "Or":
-                    return Or;
-                case "Xor":
-                    return Xor;
-                case "Not":
-                    return Not;
-                case "Cmp":
-                    return Cmp;
-                case "Je":
-                    return Je;
-                case "Jne":
-                    return Jne;
-                case "Jg":
-                    return Jg;
-                case "Jge":
-                    return Jge;
-                case "Jl":
-                    return Jl;
-                case "Jle":
-                    return Jle;
-                case "Print_Char":
-                    return Print_Char;
-                case "Load_Byte":
-                    return Load_Byte;
-                case "Load_Word":
-                    return Load_Word;
-                case "Store_Byte":
-                    return Store_Byte;
-                case "Store_Word":
-                    return Store_Word;
-                case "Inc":
-                    return Inc;
-                case "Dec":
-                    return Dec;
-                default:
-                    throw new Exception("Unknown identifier: " + instructionString);
-            }
+            return (byte)(instructions.IndexOf(instructionString) + 1);
         }
     }
 }

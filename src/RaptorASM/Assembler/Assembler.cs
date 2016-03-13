@@ -68,6 +68,23 @@ namespace RaptorASM
                         registerTwo = getRegister(expectToken(TokenType.Identifier).Value);
                         new Instruction(opcode, registerOne, registerTwo).Encode(writer);
                         break;
+                    case OpCodes.Add_Immediate:
+                    case OpCodes.Sub_Immediate:
+                    case OpCodes.Mul_Immediate:
+                    case OpCodes.Div_Immediate:
+                    case OpCodes.Mod_Immediate:
+                    case OpCodes.Mov_Immediate:
+                    case OpCodes.Shift_Left_Immediate:
+                    case OpCodes.Shift_Right_Immediate:
+                    case OpCodes.And_Immediate:
+                    case OpCodes.Or_Immediate:
+                    case OpCodes.Xor_Immediate:
+                    case OpCodes.Cmp_Immediate:
+                        registerOne = getRegister(expectToken(TokenType.Identifier).Value);
+                        expectToken(TokenType.Comma);
+                        immediate = Convert.ToInt16(expectToken(TokenType.Number).Value);
+                        new Instruction(opcode, registerOne, 0, immediate).Encode(writer);
+                        break;
                     case OpCodes.Not:
                         registerOne = getRegister(expectToken(TokenType.Identifier).Value);
                         new Instruction(opcode, registerOne).Encode(writer);
@@ -88,7 +105,13 @@ namespace RaptorASM
                     case OpCodes.Print_Char:
                     case OpCodes.Inc:
                     case OpCodes.Dec:
+                    case OpCodes.Push:
+                    case OpCodes.Pop:
                         new Instruction(opcode, getRegister(expectToken(TokenType.Identifier).Value)).Encode(writer);
+                        break;
+                    case OpCodes.Print_Immediate:
+                    case OpCodes.Print_Char_Immediate:
+                        new Instruction(opcode, 0, 0, Convert.ToInt16(expectToken(TokenType.Number).Value)).Encode(writer);
                         break;
                     case OpCodes.Jmp:
                     case OpCodes.Je:
@@ -97,7 +120,11 @@ namespace RaptorASM
                     case OpCodes.Jle:
                     case OpCodes.Jg:
                     case OpCodes.Jge:
+                    case OpCodes.Call:
                         references.Add(new LabelReference(expectToken(TokenType.Identifier).Value, writer.BaseStream.Position));
+                        new Instruction(opcode).Encode(writer);
+                        break;
+                    case OpCodes.Ret:
                         new Instruction(opcode).Encode(writer);
                         break;
                 }
