@@ -34,6 +34,9 @@ namespace RaptorASM
                         case '\"':
                             result.Add(scanString());
                             break;
+                        case ';':
+                            skipComment();
+                            break;
                         default:
                             Console.WriteLine("Unknown char: " + (char)readChar());
                             break;
@@ -71,6 +74,12 @@ namespace RaptorASM
                 result += (char)readChar();
             position++;
             return new Token(TokenType.String, result);
+        }
+
+        private void skipComment()
+        {
+            while ((char)peekChar() != '\n' && peekChar() != -1)
+                position++;
         }
 
         private int peekChar(int n = 0)

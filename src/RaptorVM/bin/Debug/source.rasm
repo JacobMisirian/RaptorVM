@@ -1,3 +1,4 @@
+; This is a comment
 Load_Immediate a, myString
 .loop
 Load_Byte b, a
@@ -7,4 +8,5 @@ Add b, b
 Jne loop
 
 .myString
-STRING "Hello, World!"
+STRING "Hello, World!" ;ayyy
+; shit
