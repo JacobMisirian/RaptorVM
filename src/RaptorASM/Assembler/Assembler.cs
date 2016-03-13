@@ -146,10 +146,20 @@ namespace RaptorASM
 
         private byte getRegister(string registerString)
         {
-            int c = Convert.ToChar(registerString);
-            if (c < 97 || c > 112)
-                throw new Exception("Unknown register " + registerString);
-            return (byte)(c - 96);
+            switch (registerString.ToUpper())
+            {
+                case "IP":
+                    return 15;
+                case "FLAGS":
+                    return 14;
+                case "SP":
+                    return 13;
+                default:
+                    int c = Convert.ToChar(registerString);
+                    if (c < 97 || c > 112)
+                        throw new Exception("Unknown register " + registerString);
+                    return (byte)(c - 97);
+            }
         }
     }
 }

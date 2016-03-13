@@ -1,0 +1,2 @@
+Print_Immediate 3
+Load_Immediate ip, 0
