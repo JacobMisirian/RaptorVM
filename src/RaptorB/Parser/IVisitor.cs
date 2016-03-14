@@ -8,6 +8,7 @@ namespace RaptorB.Parser
     public interface IVisitor
     {
         void Accept(ArgListNode node);
+        void Accept(AutoNode node);
         void Accept(BinaryOperationNode node);
         void Accept(CharNode node);
         void Accept(CodeBlockNode node);

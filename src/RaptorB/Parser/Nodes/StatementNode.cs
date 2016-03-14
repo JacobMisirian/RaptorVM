@@ -12,6 +12,8 @@ namespace RaptorB.Parser
                 return ConditionalNode.Parse(parser);
             else if (parser.MatchToken(TokenType.Identifier, "while"))
                 return WhileNode.Parse(parser);
+            else if (parser.MatchToken(TokenType.Identifier, "auto"))
+                return AutoNode.Parse(parser);
             else
                 return ExpressionNode.Parse(parser);
         }
@@ -19,6 +21,11 @@ namespace RaptorB.Parser
         public override void Visit(IVisitor visitor)
         {
             visitor.Accept(this);
+        }
+        public override void VisitChildren(IVisitor visitor)
+        {
+            foreach (AstNode child in Children)
+                child.Visit(visitor);
         }
     }
 }

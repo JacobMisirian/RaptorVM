@@ -19,6 +19,11 @@ namespace RaptorB.Parser
         {
             visitor.Accept(this);
         }
+        public override void VisitChildren(IVisitor visitor)
+        {
+            foreach (AstNode child in Children)
+                child.Visit(visitor);
+        }
     }
 
     public enum BinaryOperation

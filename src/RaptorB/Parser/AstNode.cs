@@ -8,14 +8,7 @@ namespace RaptorB.Parser
     {
         public List<AstNode> Children = new List<AstNode>();
         public abstract void Visit(IVisitor visitor);
-        public void VisitChild(IVisitor visitor)
-        {
-            Children.All(x =>
-            {
-                x.Visit(visitor);
-                return true;
-            });
-        }
+        public abstract void VisitChildren(IVisitor visitor);
     }
 }
 

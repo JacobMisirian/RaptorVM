@@ -7,29 +7,48 @@ namespace RaptorB.SemanticAnalysis
 {
     public class SymbolTable
     {
-        public Stack<LocalScope> Symbols { get; private set; }
+        public class Scope
+        {
+            private List<string> symbols = new List<string>();
+            public bool Contains(string symbol)
+            {
+                return symbols.Contains(symbol);
+            }
+
+            public void Add(string symbol)
+            {
+                symbols.Add(symbol);
+            }
+        }
+
+        public Stack<Scope> Scopes { get; private set; }
 
         public SymbolTable()
         {
-            Symbols = new Stack<LocalScope>();
+            Scopes = new Stack<Scope>();
         }
 
         public void EnterScope()
         {
-            Symbols.Push(new LocalScope());
+            Scopes.Push(new Scope());
         }
 
         public bool FindSymbol(string symbol)
         {
-            foreach (LocalScope scope in Symbols)
-                if (scope.Symbols.Contains(symbol))
+            foreach (Scope scope in Scopes)
+                if (scope.Contains(symbol))
                     return true;
             return false;
         }
 
         public void PopScope()
         {
-            Symbols.Pop();
+            Scopes.Pop();
+        }
+
+        public void AddSymbol(string symbol)
+        {
+            Scopes.Peek().Add(symbol);
         }
     }
 }

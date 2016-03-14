@@ -1,10 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RaptorVM/raptor_vm.c">
-    <Files>
-      <File FileName="RaptorVM/main.c" Line="14" Column="34" />
-      <File FileName="RaptorVM/raptor_vm.c" Line="114" Column="15" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
@@ -13,7 +9,7 @@
             <Node name="Lexer" expanded="True" />
           </Node>
           <Node name="RaptorVM" expanded="True">
-            <Node name="raptor_vm.c" selected="True" />
+            <Node name="main.c" selected="True" />
           </Node>
         </State>
       </Pad>

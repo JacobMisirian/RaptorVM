@@ -53,9 +53,9 @@
     <Compile Include="Interpreter\Interpreter.cs" />
     <Compile Include="Interpreter\ILibrary.cs" />
     <Compile Include="Interpreter\StdLib.cs" />
-    <Compile Include="SemanticAnalysis\LocalScope.cs" />
     <Compile Include="SemanticAnalysis\SemanticAnalyzer.cs" />
     <Compile Include="SemanticAnalysis\SymbolTable.cs" />
+    <Compile Include="Parser\Nodes\AutoNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
