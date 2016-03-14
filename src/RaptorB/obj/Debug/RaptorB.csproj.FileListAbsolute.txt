@@ -2,3 +2,4 @@ C:\Users\misiriaj\RaptorVM\src\RaptorB\bin\Debug\RaptorB.exe
 C:\Users\misiriaj\RaptorVM\src\RaptorB\bin\Debug\RaptorB.pdb
 C:\Users\misiriaj\RaptorVM\src\RaptorB\obj\Debug\RaptorB.exe
 C:\Users\misiriaj\RaptorVM\src\RaptorB\obj\Debug\RaptorB.pdb
+C:\Users\misiriaj\RaptorVM\src\RaptorB\obj\Debug\RaptorB.csprojResolveAssemblyReference.cache
