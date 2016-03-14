@@ -7,16 +7,16 @@ namespace RaptorB.Parser
 {
     public interface IVisitor
     {
-        object Accept(ArgListNode node);
-        object Accept(BinaryOperationNode node);
-        object Accept(CharNode node);
-        object Accept(CodeBlockNode node);
-        object Accept(ConditionalNode node);
-        object Accept(ExpressionNode node);
-        object Accept(FunctionCallNode node);
-        object Accept(IdentifierNode node);
-        object Accept(NumberNode node);
-        object Accept(StatementNode node);
-        object Accept(WhileNode node);
+        void Accept(ArgListNode node);
+        void Accept(BinaryOperationNode node);
+        void Accept(CharNode node);
+        void Accept(CodeBlockNode node);
+        void Accept(ConditionalNode node);
+        void Accept(ExpressionNode node);
+        void Accept(FunctionCallNode node);
+        void Accept(IdentifierNode node);
+        void Accept(NumberNode node);
+        void Accept(StatementNode node);
+        void Accept(WhileNode node);
     }
 }

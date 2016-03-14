@@ -6,9 +6,9 @@ namespace RaptorB.Parser
 {
     public class ExpressionNode: AstNode
     {
-        public override object Visit(IVisitor visitor)
+        public override void Visit(IVisitor visitor)
         {
-            return visitor.Accept(this);
+            visitor.Accept(this);
         }
 
         public static AstNode Parse(Parser parser)
