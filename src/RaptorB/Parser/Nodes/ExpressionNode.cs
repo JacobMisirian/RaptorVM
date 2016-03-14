@@ -122,28 +122,27 @@ namespace RaptorB.Parser
 
         private static AstNode parseTerm(Parser parser)
         {
-            Token token = parser.CurrentToken();
-            parser.Position++;
-            switch (token.TokenType)
+            if (parser.MatchToken(TokenType.Identifier))
+                return new IdentifierNode((string)parser.ExpectToken(TokenType.Identifier).Value);
+            else if (parser.MatchToken(TokenType.Number))
+                return new NumberNode((Int16)parser.ExpectToken(TokenType.Number).Value);
+            else if (parser.MatchToken(TokenType.Char))
+                return new CharNode((char)parser.ExpectToken(TokenType.Char).Value);
+            else if (parser.AcceptToken(TokenType.Bracket, "{"))
             {
-                case TokenType.Number:
-                    return new NumberNode((Int16)token.Value);
-                case TokenType.Char:
-                    return new CharNode((char)token.Value);
-                case TokenType.Identifier:
-                    return new IdentifierNode((string)token.Value);
-                case TokenType.Bracket:
-                    CodeBlockNode block = new CodeBlockNode();
-                    while (!parser.MatchToken(TokenType.Bracket, "}"))
-                        block.Children.Add(StatementNode.Parse(parser));
-                    return block;
-                case TokenType.Parentheses:
-                    AstNode statement = ExpressionNode.Parse(parser);
-                    parser.ExpectToken(TokenType.Parentheses, ")");
-                    return statement;
-                default:
-                    throw new Exception("Unknown token " + token.TokenType + " " + token.Value);
+                CodeBlockNode block = new CodeBlockNode();
+                while (!parser.AcceptToken(TokenType.Bracket, "}"))
+                    block.Children.Add(StatementNode.Parse(parser));
+                return block;
             }
+            else if (parser.AcceptToken(TokenType.Parentheses, "("))
+            {
+                AstNode expression = ExpressionNode.Parse(parser);
+                parser.ExpectToken(TokenType.Parentheses, ")");
+                return expression;
+            }
+            else
+                throw new Exception("Unknown token " + parser.CurrentToken().TokenType);
         }
     }
 }

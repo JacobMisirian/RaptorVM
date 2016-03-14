@@ -28,7 +28,7 @@ namespace RaptorB.Parser
             AstNode predicate = ExpressionNode.Parse(parser);
             AstNode body = StatementNode.Parse(parser);
 
-            if (parser.MatchToken(TokenType.Identifier, "else"))
+            if (parser.AcceptToken(TokenType.Identifier, "else"))
                 return new ConditionalNode(predicate, body, StatementNode.Parse(parser));
             return new ConditionalNode(predicate, body);
         }

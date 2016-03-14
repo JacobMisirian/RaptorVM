@@ -17,13 +17,13 @@ namespace RaptorB.Interpreter
 
         private static object putchar(object[] args)
         {
-            Console.Write((char)args[0]);
+            Console.Write(Convert.ToChar(args[0]));
             return null;
         }
 
         private static object putint(object[] args)
         {
-            Console.Write((Int16)args[1]);
+            Console.Write(Convert.ToInt16(args[0]));
             return null;
         }
     }

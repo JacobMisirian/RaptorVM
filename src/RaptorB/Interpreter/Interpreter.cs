@@ -94,6 +94,26 @@ namespace RaptorB.Interpreter
                     return value;
                 case BinaryOperation.Addition:
                     return Convert.ToInt16(evaluateNode(node.Left)) + Convert.ToInt16(evaluateNode(node.Right));
+                case BinaryOperation.Subtraction:
+                    return Convert.ToInt16(evaluateNode(node.Left)) - Convert.ToInt16(evaluateNode(node.Right));
+                case BinaryOperation.Multiplication:
+                    return Convert.ToInt16(evaluateNode(node.Left)) * Convert.ToInt16(evaluateNode(node.Right));
+                case BinaryOperation.Division:
+                    return Convert.ToInt16(evaluateNode(node.Left)) / Convert.ToInt16(evaluateNode(node.Right));
+                case BinaryOperation.Modulus:
+                    return Convert.ToInt16(evaluateNode(node.Left)) % Convert.ToInt16(evaluateNode(node.Right));
+                case BinaryOperation.EqualTo:
+                    return Convert.ToInt16(evaluateNode(node.Left)) == Convert.ToInt16(evaluateNode(node.Right));
+                case BinaryOperation.NotEqualTo:
+                    return Convert.ToInt16(evaluateNode(node.Left)) != Convert.ToInt16(evaluateNode(node.Right));
+                case BinaryOperation.GreaterThan:
+                    return Convert.ToInt16(evaluateNode(node.Left)) > Convert.ToInt16(evaluateNode(node.Right));
+                case BinaryOperation.GreaterThanOrEqual:
+                    return Convert.ToInt16(evaluateNode(node.Left)) >= Convert.ToInt16(evaluateNode(node.Right));
+                case BinaryOperation.LessThan:
+                    return Convert.ToInt16(evaluateNode(node.Left)) < Convert.ToInt16(evaluateNode(node.Right));
+                case BinaryOperation.LessThanOrEqual:
+                    return Convert.ToInt16(evaluateNode(node.Left)) <= Convert.ToInt16(evaluateNode(node.Right));
                 default:
                     throw new Exception("Unknown Binary Operation: " + node.BinaryOperation);
             }

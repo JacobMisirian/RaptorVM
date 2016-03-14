@@ -14,9 +14,9 @@ namespace RaptorB
             {
                 string source = Console.ReadLine();
                 var tokens = new Lexer.Lexer(source).Scan();
-                Console.WriteLine("Got tokens: " + tokens.Count);
+                foreach (Token token in tokens)
+                    Console.WriteLine(token.ToString());
                 var ast = new Parser.Parser(tokens).Parse();
-                Console.WriteLine("Got ast: " + ast.Children.Count);
                 interpreter.Interpret(ast);
             }
         }

@@ -17,6 +17,7 @@ namespace RaptorB.Parser
 
         public static WhileNode Parse(Parser parser)
         {
+            parser.ExpectToken(TokenType.Identifier, "while");
             AstNode predicate = ExpressionNode.Parse(parser);
             AstNode body = StatementNode.Parse(parser);
             return new WhileNode(predicate, body);

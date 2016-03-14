@@ -43,6 +43,7 @@ namespace RaptorB.Lexer
                             result.Add(new Token(TokenType.Comparison, op));
                             break;
                         case '=':
+                            position++;
                             if ((char)peekChar() == '=')
                             {
                                 result.Add(new Token(TokenType.Comparison, "=="));
@@ -50,7 +51,6 @@ namespace RaptorB.Lexer
                             }
                             else
                                 result.Add(new Token(TokenType.Assignment, "="));
-                            position++;
                             break;
                         case ',':
                             result.Add(new Token(TokenType.Comma, ((char)readChar()).ToString()));
