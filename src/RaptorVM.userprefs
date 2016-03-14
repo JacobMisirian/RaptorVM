@@ -1,6 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="RaptorB/CodeGen/CodeGenerator.cs">
+    <Files>
+      <File FileName="RaptorB/CodeGen/CodeGenerator.cs" Line="42" Column="10" />
+      <File FileName="RaptorB/SemanticAnalysis/SemanticAnalyzer.cs" Line="64" Column="1" />
+      <File FileName="RaptorB/Parser/Nodes/ExpressionNode.cs" Line="135" Column="90" />
+      <File FileName="RaptorB/Interpreter/Interpreter.cs" Line="64" Column="14" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
@@ -8,8 +14,15 @@
             <Node name="Assembler" expanded="True" />
             <Node name="Lexer" expanded="True" />
           </Node>
-          <Node name="RaptorVM" expanded="True">
-            <Node name="main.c" selected="True" />
+          <Node name="RaptorB" expanded="True">
+            <Node name="CodeGen" expanded="True">
+              <Node name="CodeGenerator.cs" selected="True" />
+            </Node>
+            <Node name="Interpreter" expanded="True" />
+            <Node name="Parser" expanded="True">
+              <Node name="Nodes" expanded="True" />
+            </Node>
+            <Node name="SemanticAnalysis" expanded="True" />
           </Node>
         </State>
       </Pad>

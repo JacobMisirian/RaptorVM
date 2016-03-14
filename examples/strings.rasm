@@ -1,0 +1,10 @@
+Load_Immediate            b, myString    ; Load the memory address of the label .myString
+.display                                 ; Label loop.
+	Load_Byte         a, b           ; Load from memory address b into register a.
+	Print_Char        a              ; Print a as a char.
+	Cmp_Immediate     a, 0           ; Compare a to 0 (null).
+	Inc               b              ; Increment the memory address in b.
+	Jne               display        ; As long as it isn't null, keep going.
+
+.myString                                ; Label for string.
+STRING "Hello, World!"                   ; Preprocessor directive for storing strings.
