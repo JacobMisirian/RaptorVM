@@ -22,6 +22,11 @@ namespace RaptorB.Parser
             Children.Add(elseBody);
         }
 
+        public override object Visit(IVisitor visitor)
+        {
+            return visitor.Accept(this);
+        }
+
         public static ConditionalNode Parse(Parser parser)
         {
             parser.ExpectToken(TokenType.Identifier, "if");

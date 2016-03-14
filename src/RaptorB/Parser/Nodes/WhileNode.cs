@@ -15,6 +15,11 @@ namespace RaptorB.Parser
             Children.Add(body);
         }
 
+        public override object Visit(IVisitor visitor)
+        {
+            return visitor.Accept(this);
+        }
+
         public static WhileNode Parse(Parser parser)
         {
             parser.ExpectToken(TokenType.Identifier, "while");

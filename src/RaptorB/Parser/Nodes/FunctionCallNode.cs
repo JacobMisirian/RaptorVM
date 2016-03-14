@@ -12,6 +12,11 @@ namespace RaptorB.Parser
             Children.Add(target);
             Children.Add(arguments);
         }
+
+        public override object Visit(IVisitor visitor)
+        {
+            return visitor.Accept(this);
+        }
     }
 }
 

@@ -15,6 +15,11 @@ namespace RaptorB.Parser
             else
                 return ExpressionNode.Parse(parser);
         }
+
+        public override object Visit(IVisitor visitor)
+        {
+            return visitor.Accept(this);
+        }
     }
 }
 

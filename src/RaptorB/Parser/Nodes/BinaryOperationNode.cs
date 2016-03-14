@@ -14,6 +14,11 @@ namespace RaptorB.Parser
             Left = left;
             Right = right;
         }
+
+        public override object Visit(IVisitor visitor)
+        {
+            return visitor.Accept(this);
+        }
     }
 
     public enum BinaryOperation

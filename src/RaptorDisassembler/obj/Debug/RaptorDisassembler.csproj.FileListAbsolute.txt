@@ -1,0 +1,4 @@
+C:\Users\misiriaj\RaptorVM\src\RaptorDisassembler\bin\Debug\RaptorDisassembler.exe
+C:\Users\misiriaj\RaptorVM\src\RaptorDisassembler\bin\Debug\RaptorDisassembler.pdb
+C:\Users\misiriaj\RaptorVM\src\RaptorDisassembler\obj\Debug\RaptorDisassembler.exe
+C:\Users\misiriaj\RaptorVM\src\RaptorDisassembler\obj\Debug\RaptorDisassembler.pdb
