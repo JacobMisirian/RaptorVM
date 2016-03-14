@@ -14,6 +14,7 @@ namespace RaptorB.Parser
         void Accept(CodeBlockNode node);
         void Accept(ConditionalNode node);
         void Accept(ExpressionNode node);
+        void Accept(FunctionDeclarationNode node);
         void Accept(FunctionCallNode node);
         void Accept(IdentifierNode node);
         void Accept(NumberNode node);

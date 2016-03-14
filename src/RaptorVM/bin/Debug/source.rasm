@@ -1,2 +1,15 @@
-Print_Immediate 3
-Load_Immediate ip, 0
+Load_Immediate a, myString
+Call print
+.hang
+Jmp hang
+
+.print
+.printLoop
+Load_Byte b, a
+Print_Char b
+Inc a
+Cmp_Immediate b, 0
+Jne printLoop
+
+.myString
+STRING "Hello, World!"

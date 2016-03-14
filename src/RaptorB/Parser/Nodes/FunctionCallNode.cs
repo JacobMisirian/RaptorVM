@@ -1,16 +1,17 @@
 using System;
+using System.Collections.Generic;
 
 namespace RaptorB.Parser
 {
     public class FunctionCallNode: AstNode
     {
-        public AstNode Target { get { return Children[0]; } }
-        public AstNode Arguments { get { return Children[1]; } }
+        public string Name { get; private set; }
+        public List<string> Parameters { get; private set; }
 
-        public FunctionCallNode(AstNode target, ArgListNode arguments)
+        public FunctionCallNode(string name, List<string> parameters)
         {
-            Children.Add(target);
-            Children.Add(arguments);
+            Name = name;
+            Parameters = parameters;
         }
 
         public override void Visit(IVisitor visitor)

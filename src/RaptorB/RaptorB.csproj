@@ -56,7 +56,12 @@
     <Compile Include="SemanticAnalysis\SemanticAnalyzer.cs" />
     <Compile Include="SemanticAnalysis\SymbolTable.cs" />
     <Compile Include="Parser\Nodes\AutoNode.cs" />
+    <Compile Include="Parser\Nodes\FunctionDeclarationNode.cs" />
+    <Compile Include="CodeGen\CodeGenerator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CodeGen\" />
+  </ItemGroup>
 </Project>

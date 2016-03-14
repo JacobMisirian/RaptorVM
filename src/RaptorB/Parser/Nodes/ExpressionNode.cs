@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using RaptorB.Lexer;
 
@@ -125,7 +126,14 @@ namespace RaptorB.Parser
         private static AstNode parseFunctionCall(Parser parser, AstNode left)
         {
             if (parser.MatchToken(TokenType.Parentheses, "("))
-                return parseFunctionCall(parser, new FunctionCallNode(left, ArgListNode.Parse(parser)));
+            {
+                string name = ((IdentifierNode)left).Identifier;
+                var args = ArgListNode.Parse(parser);
+                List<string> parameters = new List<string>();
+                foreach (AstNode child in args.Children)
+                    parameters.Add(((IdentifierNode)child).Identifier);
+                return parseFunctionCall(parser, new FunctionCallNode(name, parameters));
+            }
             else
                 return left;
         }

@@ -23,17 +23,7 @@ namespace RaptorB.SemanticAnalysis
             return result;
         }
 
-        public void Accept(CodeBlockNode node)
-        {
-            result.EnterScope();
-            node.VisitChildren(this);
-            result.PopScope();
-        }
         public void Accept(ArgListNode node)
-        {
-            node.VisitChildren(this);
-        }
-        public void Accept(BinaryOperationNode node)
         {
             node.VisitChildren(this);
         }
@@ -41,6 +31,25 @@ namespace RaptorB.SemanticAnalysis
         {
             result.AddSymbol(node.Variable);
             node.VisitChildren(this);
+        }
+        public void Accept(BinaryOperationNode node)
+        {
+            node.VisitChildren(this);
+        }
+        public void Accept(CodeBlockNode node)
+        {
+            result.EnterScope();
+            node.VisitChildren(this);
+            result.PopScope();
+        }
+        public void Accept(FunctionDeclarationNode node)
+        {
+            result.AddSymbol(node.Name);
+            result.EnterScope();
+            foreach (string param in node.Parameters)
+                result.AddSymbol(param);
+            node.VisitChildren(this);
+            result.PopScope();
         }
         public void Accept(IdentifierNode node) {}
         public void Accept(NumberNode node) {}

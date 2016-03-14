@@ -62,17 +62,6 @@ namespace RaptorB.Interpreter
                     return variables[idNode.Identifier];
                 throw new Exception("Variable " + idNode.Identifier + " does not exist in dictionary!");
             }
-            else if (node is FunctionCallNode)
-            {
-                FunctionCallNode fnode = (FunctionCallNode)node;
-                IFunction target = evaluateNode(fnode.Target) as IFunction;
-                if (target == null)
-                    throw new Exception("Attempt to run a non-valid function!");
-                object[] arguments = new object[fnode.Arguments.Children.Count];
-                for (int x = 0; x < fnode.Arguments.Children.Count; x++)
-                    arguments[x] = evaluateNode(fnode.Arguments.Children[x]);
-                return target.Invoke(arguments);
-            }
             else if (node is NumberNode)
                 return ((NumberNode)node).Number;
             else if (node is CharNode)
