@@ -20,7 +20,7 @@ namespace RaptorB.Parser
         public AstNode Parse()
         {
             CodeBlockNode tree = new CodeBlockNode();
-            while (!EndOfStream)
+            while (position < tokens.Count)
                 tree.Children.Add(StatementNode.Parse(this));
             return tree;
         }

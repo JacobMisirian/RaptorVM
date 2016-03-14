@@ -8,9 +8,10 @@ namespace RaptorB
     {
         public static void Main(string[] args)
         {
+            Interpreter.Interpreter interpreter = new Interpreter.Interpreter();
+
             while (true)
-                foreach (Token token in new Lexer.Lexer(Console.ReadLine()).Scan())
-                    Console.WriteLine(token.ToString());
+                interpreter.Interpret(new Parser.Parser(new Lexer.Lexer(Console.ReadLine()).Scan()).Parse());
         }
     }
 }

@@ -136,6 +136,10 @@ namespace RaptorB.Parser
                     while (!parser.MatchToken(TokenType.Bracket, "}"))
                         block.Children.Add(StatementNode.Parse(parser));
                     return block;
+                case TokenType.Parentheses:
+                    AstNode statement = ExpressionNode.Parse(parser);
+                    parser.ExpectToken(TokenType.Parentheses, ")");
+                    return statement;
                 default:
                     throw new Exception("Unknown token " + token.TokenType + " " + token.Value);
             }

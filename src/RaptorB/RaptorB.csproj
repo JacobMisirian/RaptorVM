@@ -49,11 +49,15 @@
     <Compile Include="Parser\Nodes\StatementNode.cs" />
     <Compile Include="Parser\Nodes\ConditionalNode.cs" />
     <Compile Include="Parser\Nodes\WhileNode.cs" />
+    <Compile Include="Interpreter\Interpreter.cs" />
+    <Compile Include="Interpreter\ILibrary.cs" />
+    <Compile Include="Interpreter\StdLib.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Lexer\" />
     <Folder Include="Parser\" />
     <Folder Include="Parser\Nodes\" />
+    <Folder Include="Interpreter\" />
   </ItemGroup>
 </Project>

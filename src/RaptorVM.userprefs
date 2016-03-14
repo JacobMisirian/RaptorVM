@@ -2,8 +2,8 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="RaptorVM/raptor_vm.c">
     <Files>
-      <File FileName="RaptorVM/main.c" Line="2" Column="22" />
-      <File FileName="RaptorVM/raptor_vm.c" Line="30" Column="82" />
+      <File FileName="RaptorVM/main.c" Line="14" Column="34" />
+      <File FileName="RaptorVM/raptor_vm.c" Line="114" Column="15" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
