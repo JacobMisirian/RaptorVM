@@ -123,6 +123,7 @@ namespace RaptorB.Parser
         private static AstNode parseTerm(Parser parser)
         {
             Token token = parser.CurrentToken();
+            parser.Position++;
             switch (token.TokenType)
             {
                 case TokenType.Number:

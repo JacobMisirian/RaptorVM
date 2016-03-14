@@ -1,0 +1,5 @@
+C:\Users\misiriaj\RaptorVM\src\RaptorASM\bin\Debug\RaptorASM.exe
+C:\Users\misiriaj\RaptorVM\src\RaptorASM\bin\Debug\RaptorASM.pdb
+C:\Users\misiriaj\RaptorVM\src\RaptorASM\obj\Debug\RaptorASM.csprojResolveAssemblyReference.cache
+C:\Users\misiriaj\RaptorVM\src\RaptorASM\obj\Debug\RaptorASM.exe
+C:\Users\misiriaj\RaptorVM\src\RaptorASM\obj\Debug\RaptorASM.pdb

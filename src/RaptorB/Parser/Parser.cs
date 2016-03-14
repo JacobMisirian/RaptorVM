@@ -21,7 +21,9 @@ namespace RaptorB.Parser
         {
             CodeBlockNode tree = new CodeBlockNode();
             while (position < tokens.Count)
+            {
                 tree.Children.Add(StatementNode.Parse(this));
+            }
             return tree;
         }
 

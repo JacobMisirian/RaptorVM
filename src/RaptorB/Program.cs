@@ -11,7 +11,14 @@ namespace RaptorB
             Interpreter.Interpreter interpreter = new Interpreter.Interpreter();
 
             while (true)
-                interpreter.Interpret(new Parser.Parser(new Lexer.Lexer(Console.ReadLine()).Scan()).Parse());
+            {
+                string source = Console.ReadLine();
+                var tokens = new Lexer.Lexer(source).Scan();
+                Console.WriteLine("Got tokens: " + tokens.Count);
+                var ast = new Parser.Parser(tokens).Parse();
+                Console.WriteLine("Got ast: " + ast.Children.Count);
+                interpreter.Interpret(ast);
+            }
         }
     }
 }

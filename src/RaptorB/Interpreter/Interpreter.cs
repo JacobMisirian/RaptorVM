@@ -58,9 +58,9 @@ namespace RaptorB.Interpreter
             else if (node is IdentifierNode)
             {
                 IdentifierNode idNode = (IdentifierNode)node;
-                if (variables.ContainsKey(idNode.Identifier.ToUpper()))
-                    return variables[idNode.Identifier.ToUpper()];
-                throw new Exception("Variable " + idNode.Identifier.ToUpper() + " does not exist in dictionary!");
+                if (variables.ContainsKey(idNode.Identifier))
+                    return variables[idNode.Identifier];
+                throw new Exception("Variable " + idNode.Identifier + " does not exist in dictionary!");
             }
             else if (node is FunctionCallNode)
             {
