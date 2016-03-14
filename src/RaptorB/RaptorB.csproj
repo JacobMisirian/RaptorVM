@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E1FE1441-915D-45BB-8D44-3A15D9A53D42}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>RaptorB</RootNamespace>
+    <AssemblyName>RaptorB</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Lexer\Token.cs" />
+    <Compile Include="Lexer\Lexer.cs" />
+    <Compile Include="Parser\AstNode.cs" />
+    <Compile Include="Parser\Parser.cs" />
+    <Compile Include="Parser\Nodes\CodeBlockNode.cs" />
+    <Compile Include="Parser\Nodes\ExpressionNode.cs" />
+    <Compile Include="Parser\Nodes\NumberNode.cs" />
+    <Compile Include="Parser\Nodes\CharNode.cs" />
+    <Compile Include="Parser\Nodes\IdentifierNode.cs" />
+    <Compile Include="Parser\Nodes\BinaryOperationNode.cs" />
+    <Compile Include="Parser\Nodes\ArgListNode.cs" />
+    <Compile Include="Parser\Nodes\FunctionCallNode.cs" />
+    <Compile Include="Parser\Nodes\StatementNode.cs" />
+    <Compile Include="Parser\Nodes\ConditionalNode.cs" />
+    <Compile Include="Parser\Nodes\WhileNode.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Lexer\" />
+    <Folder Include="Parser\" />
+    <Folder Include="Parser\Nodes\" />
+  </ItemGroup>
+</Project>

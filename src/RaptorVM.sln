@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaptorASM", "RaptorASM\Rapt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaptorDisassembler", "RaptorDisassembler\RaptorDisassembler.csproj", "{C3371AB1-251C-4F9F-88C6-D8AAD64B1036}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaptorB", "RaptorB\RaptorB.csproj", "{E1FE1441-915D-45BB-8D44-3A15D9A53D42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{D30422EA-E40F-4C0B-842E-F5A44F38F8F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D30422EA-E40F-4C0B-842E-F5A44F38F8F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D30422EA-E40F-4C0B-842E-F5A44F38F8F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1FE1441-915D-45BB-8D44-3A15D9A53D42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1FE1441-915D-45BB-8D44-3A15D9A53D42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1FE1441-915D-45BB-8D44-3A15D9A53D42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1FE1441-915D-45BB-8D44-3A15D9A53D42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = RaptorVM\RaptorVM.cproj
