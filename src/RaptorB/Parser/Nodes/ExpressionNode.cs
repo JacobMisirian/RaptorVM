@@ -131,6 +131,11 @@ namespace RaptorB.Parser
                     return new CharNode((char)token.Value);
                 case TokenType.Identifier:
                     return new IdentifierNode((string)token.Value);
+                case TokenType.Bracket:
+                    CodeBlockNode block = new CodeBlockNode();
+                    while (!parser.MatchToken(TokenType.Bracket, "}"))
+                        block.Children.Add(StatementNode.Parse(parser));
+                    return block;
                 default:
                     throw new Exception("Unknown token " + token.TokenType + " " + token.Value);
             }
