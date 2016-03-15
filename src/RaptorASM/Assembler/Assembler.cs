@@ -155,6 +155,8 @@ namespace RaptorASM
                     return 14;
                 case "SP":
                     return 13;
+                case "BP":
+                    return 12;
                 default:
                     int c = Convert.ToChar(registerString);
                     if (c < 97 || c > 112)

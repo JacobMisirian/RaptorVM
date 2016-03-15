@@ -28,12 +28,16 @@ namespace RaptorB.CodeGen
 
         public void Accept(AutoNode node)
         {
+
         }
         public void Accept(ArgListNode node)
         {
             node.VisitChildren(this);
         }
-        public void Accept(BinaryOperationNode node) {}
+        public void Accept(BinaryOperationNode node)
+        {
+            node.VisitChildren(this);
+        }
         public void Accept(CharNode node)
         {
             Console.WriteLine("Push_Immediate " + Convert.ToInt16(node.Char));
@@ -45,7 +49,11 @@ namespace RaptorB.CodeGen
         public void Accept(FunctionDeclarationNode node)
         {
             Console.WriteLine("." + node.Name);
+            Console.WriteLine("Push BP");
+            Console.WriteLine("Mov BP, SP");
+            Console.WriteLine("Sub_Immediate SP, " + (node.Parameters.Count * 2));
             node.VisitChildren(this);
+            Console.WriteLine("Pop BP");
             Console.WriteLine("Ret");
         }
         public void Accept(ConditionalNode node) {}
