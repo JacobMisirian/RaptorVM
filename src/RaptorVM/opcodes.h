@@ -49,5 +49,6 @@
 #define OP_OR_IMMEDIATE 0x2D
 #define OP_XOR_IMMEDIATE 0x2E
 #define OP_CMP_IMMEDIATE 0x2F
+#define OP_PUSH_IMMEDIATE 0x30
 
 #endif

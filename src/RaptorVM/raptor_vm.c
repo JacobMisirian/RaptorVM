@@ -212,6 +212,10 @@ static void decode_instruction(struct raptor_context *context, struct raptor_ins
 		case OP_CMP_IMMEDIATE:
 			set_flags(context, context->registers[instruction->operandOne] - instruction->immediate);
 			break;
+		case OP_PUSH_IMMEDIATE:
+			SP -= 2;
+			context->ram[SP] = instruction->immediate;
+			break;
 	}
 }
 

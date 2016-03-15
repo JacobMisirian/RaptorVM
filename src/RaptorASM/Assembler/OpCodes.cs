@@ -11,7 +11,8 @@ namespace RaptorASM
             "And",  "Or", "Xor", "Not", "Cmp", "Je", "Jne", "Jg", "Jge", "Jl", "Jle", "Print_Char", "Load_Byte", "Load_Word",
             "Store_Byte", "Store_Word", "Inc", "Dec", "Push", "Pop", "Call", "Ret", "Add_Immediate", "Sub_Immediate",
             "Mul_Immediate", "Div_Immediate", "Mod_Immediate", "Mov_Immediate", "Print_Immediate", "Print_Char_Immediate",
-            "Shift_Left_Immediate", "Shift_Right_Immediate", "And_Immedate", "Or_Immediate", "Xor_Immediate", "Cmp_Immediate"
+            "Shift_Left_Immediate", "Shift_Right_Immediate", "And_Immedate", "Or_Immediate", "Xor_Immediate", "Cmp_Immediate",
+            "Push_Immediate"
         };
 
         public const byte Add = 0x01;
@@ -61,6 +62,7 @@ namespace RaptorASM
         public const byte Or_Immediate = 0x2D;
         public const byte Xor_Immediate = 0x2E;
         public const byte Cmp_Immediate = 0x2F;
+        public const byte Push_Immediate = 0x30;
 
         public static byte ToByte(string instructionString)
         {

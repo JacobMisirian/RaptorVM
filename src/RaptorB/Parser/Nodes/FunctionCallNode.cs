@@ -5,13 +5,13 @@ namespace RaptorB.Parser
 {
     public class FunctionCallNode: AstNode
     {
-        public string Name { get; private set; }
-        public List<string> Parameters { get; private set; }
+        public AstNode Target { get { return Children[0]; } }
+        public AstNode Arguments { get { return Children[1]; } }
 
-        public FunctionCallNode(string name, List<string> parameters)
+        public FunctionCallNode(AstNode target, ArgListNode arguments)
         {
-            Name = name;
-            Parameters = parameters;
+            Children.Add(target);
+            Children.Add(arguments);
         }
 
         public override void Visit(IVisitor visitor)

@@ -111,6 +111,7 @@ namespace RaptorASM
                         break;
                     case OpCodes.Print_Immediate:
                     case OpCodes.Print_Char_Immediate:
+                    case OpCodes.Push_Immediate:
                         new Instruction(opcode, 0, 0, Convert.ToInt16(expectToken(TokenType.Number).Value)).Encode(writer);
                         break;
                     case OpCodes.Jmp:

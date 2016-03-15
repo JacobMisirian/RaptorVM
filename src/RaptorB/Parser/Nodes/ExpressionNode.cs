@@ -126,18 +126,10 @@ namespace RaptorB.Parser
         private static AstNode parseFunctionCall(Parser parser, AstNode left)
         {
             if (parser.MatchToken(TokenType.Parentheses, "("))
-            {
-                string name = ((IdentifierNode)left).Identifier;
-                var args = ArgListNode.Parse(parser);
-                List<string> parameters = new List<string>();
-                foreach (AstNode child in args.Children)
-                    parameters.Add(((IdentifierNode)child).Identifier);
-                return parseFunctionCall(parser, new FunctionCallNode(name, parameters));
-            }
+                return parseFunctionCall(parser, new FunctionCallNode(left, ArgListNode.Parse(parser)));
             else
                 return left;
         }
-
         private static AstNode parseTerm(Parser parser)
         {
             if (parser.MatchToken(TokenType.Identifier))

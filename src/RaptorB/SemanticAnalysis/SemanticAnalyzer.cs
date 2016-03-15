@@ -19,6 +19,7 @@ namespace RaptorB.SemanticAnalysis
         public SymbolTable Analyze()
         {
             result = new SymbolTable();
+            result.EnterScope();
             code.VisitChildren(this);
             return result;
         }

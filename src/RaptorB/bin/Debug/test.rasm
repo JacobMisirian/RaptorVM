@@ -1,0 +1,7 @@
+Load_Immediate SP, 1000
+Push_Immediate 97
+Call putchar
+Push_Immediate 98
+Call putchar
+.hang Jmp hang
+.putchar Pop a Pop b Print_Char b Push a Ret

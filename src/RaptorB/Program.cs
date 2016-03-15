@@ -14,10 +14,11 @@ namespace RaptorB
             {
                 string source = Console.ReadLine();
                 var tokens = new Lexer.Lexer(source).Scan();
-                foreach (Token token in tokens)
-                    Console.WriteLine(token.ToString());
+                /*foreach (Token token in tokens)
+                    Console.WriteLine(token.ToString());*/
                 var ast = new Parser.Parser(tokens).Parse();
-                interpreter.Interpret(ast);
+                var symbolTable = new SemanticAnalysis.SemanticAnalyzer(ast).Analyze();
+                new CodeGen.CodeGenerator(ast, symbolTable).Generate();
             }
         }
     }
