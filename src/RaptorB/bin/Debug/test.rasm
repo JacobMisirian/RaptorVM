@@ -1,14 +1,31 @@
-Load_Immediate SP, 1000
+Load_Immediate SP, 6000
 Call main
 .hang Jmp hang
 .test
+Push BP
+Mov BP, SP
+Sub_Immediate SP, 4
+Mov a, BP
+Sub_Immediate b, 0
+Load_Word b, a
+Push `
 Call putchar
+Mov `, BP
+Sub_Immediate a, 0
+Load_Word a, `
+Push _
 Call putchar
+Pop BP
 Ret
 .main
-Push_Immediate 97
-Push_Immediate 98
-Call test
+Push BP
+Mov BP, SP
+Sub_Immediate SP, 0
+Load_Immediate _, 99
+Push _
+Load_Immediate _, 98
+Push _
 Call putchar
+Pop BP
 Ret
 .putchar Pop a Pop b Print_Char b Push a Ret

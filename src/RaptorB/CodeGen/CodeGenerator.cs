@@ -19,7 +19,7 @@ namespace RaptorB.CodeGen
 
         public void Generate()
         {
-            Console.WriteLine("Load_Immediate SP, 1000");
+            Console.WriteLine("Load_Immediate SP, 6000");
             Console.WriteLine("Call main");
             Console.WriteLine(".hang Jmp hang");
             ast.VisitChildren(this);
@@ -32,15 +32,28 @@ namespace RaptorB.CodeGen
         }
         public void Accept(ArgListNode node)
         {
-            node.VisitChildren(this);
+            for (int i = node.Children.Count - 1; i >= 0; i--)
+            {
+                node.Children[i].Visit(this);
+                Console.WriteLine("Push " + popRegister());
+            }
         }
         public void Accept(BinaryOperationNode node)
         {
-            node.VisitChildren(this);
+            switch (node.BinaryOperation)
+            {
+                case BinaryOperation.Assignment:
+                    Console.WriteLine("Mov " + pushRegister() + ", BP");
+                    Console.WriteLine("Sub_Immediate " + getRegister() + ", " + (2 * (1 + symbolTable.GetIndex(((IdentifierNode)node.Left).Identifier))));
+                    Console.WriteLine("Store_Word " + getRegister() + ", " + popRegister());
+                    break;
+                default:
+                    throw new NotImplementedException("Unimplemented Binary Operation: " + node.BinaryOperation);
+            }
         }
         public void Accept(CharNode node)
         {
-            Console.WriteLine("Push_Immediate " + Convert.ToInt16(node.Char));
+            Console.WriteLine("Load_Immediate " + pushRegister() + ", " + Convert.ToInt16(node.Char));
         }
         public void Accept(CodeBlockNode node)
         {
@@ -64,11 +77,36 @@ namespace RaptorB.CodeGen
             string call = ((IdentifierNode)node.Target).Identifier;
             Console.WriteLine("Call " + call);
         }
-        public void Accept(IdentifierNode node) {}
-        public void Accept(NumberNode node) {}
+        public void Accept(IdentifierNode node)
+        {
+            Console.WriteLine("Mov " + pushRegister() + ", BP");
+            Console.WriteLine("Sub_Immediate " + getRegister() + ", " + (2 * (1 + symbolTable.GetIndex(node.Identifier))));
+            Console.WriteLine("Load_Word " + getRegister() + ", " + popRegister());
+        }
+        public void Accept(NumberNode node)
+        {
+            Console.WriteLine("Load_Immediate " + pushRegister() + ", " + node.Number);
+        }
         public void Accept(StatementNode node) {}
         public void Accept(WhileNode node) {}
 
         private const string putchar = ".putchar Pop a Pop b Print_Char b Push a Ret";
+
+        private int currentRegister = (int)'a';
+
+        private string pushRegister()
+        {
+            return ((char)currentRegister++).ToString();
+        }
+
+        private string popRegister()
+        {
+            return ((char)--currentRegister).ToString();
+        }
+
+        private string getRegister()
+        {
+            return ((char)currentRegister).ToString();
+        }
     }
 }
