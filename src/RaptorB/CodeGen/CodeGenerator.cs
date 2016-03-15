@@ -20,9 +20,9 @@ namespace RaptorB.CodeGen
         public void Generate()
         {
             Console.WriteLine("Load_Immediate SP, 1000");
-            Console.WriteLine("Jmp main");
-            ast.VisitChildren(this);
+            Console.WriteLine("Call main");
             Console.WriteLine(".hang Jmp hang");
+            ast.VisitChildren(this);
             Console.WriteLine(putchar);
         }
 

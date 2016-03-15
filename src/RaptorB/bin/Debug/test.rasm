@@ -1,7 +1,14 @@
 Load_Immediate SP, 1000
-Push_Immediate 97
-Call putchar
-Push_Immediate 98
-Call putchar
+Call main
 .hang Jmp hang
+.test
+Call putchar
+Call putchar
+Ret
+.main
+Push_Immediate 97
+Push_Immediate 98
+Call test
+Call putchar
+Ret
 .putchar Pop a Pop b Print_Char b Push a Ret
