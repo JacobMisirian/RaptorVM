@@ -57,10 +57,13 @@ namespace RaptorB.CodeGen
         }
         public void Accept(CodeBlockNode node)
         {
+            symbolTable.EnterScope();
             node.VisitChildren(this);
+            symbolTable.PopScope();
         }
         public void Accept(FunctionDeclarationNode node)
         {
+            symbolTable.EnterScope();
             Console.WriteLine("." + node.Name);
             Console.WriteLine("Push BP");
             Console.WriteLine("Mov BP, SP");
@@ -68,6 +71,7 @@ namespace RaptorB.CodeGen
             node.VisitChildren(this);
             Console.WriteLine("Pop BP");
             Console.WriteLine("Ret");
+            symbolTable.PopScope();
         }
         public void Accept(ConditionalNode node) {}
         public void Accept(ExpressionNode node) {}
@@ -76,12 +80,16 @@ namespace RaptorB.CodeGen
             node.Arguments.Visit(this);
             string call = ((IdentifierNode)node.Target).Identifier;
             Console.WriteLine("Call " + call);
+            Console.WriteLine("Add_Immediate SP, " + node.Arguments.Children.Count * 2);
         }
         public void Accept(IdentifierNode node)
         {
-            Console.WriteLine("Mov " + pushRegister() + ", BP");
+            Console.WriteLine("INDEX for " + node.Identifier + ": " + symbolTable.GetIndex(node.Identifier));
+            pushRegister();
+            Console.WriteLine("Mov " + getRegister() + ", BP");
             Console.WriteLine("Sub_Immediate " + getRegister() + ", " + (2 * (1 + symbolTable.GetIndex(node.Identifier))));
             Console.WriteLine("Load_Word " + getRegister() + ", " + popRegister());
+            pushRegister();
         }
         public void Accept(NumberNode node)
         {
@@ -90,7 +98,7 @@ namespace RaptorB.CodeGen
         public void Accept(StatementNode node) {}
         public void Accept(WhileNode node) {}
 
-        private const string putchar = ".putchar Pop a Pop b Print_Char b Push a Ret";
+        private const string putchar = ".putchar Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Byte b, a Print_Char b Pop BP Ret";
 
         private int currentRegister = (int)'a';
 

@@ -5,27 +5,30 @@ Call main
 Push BP
 Mov BP, SP
 Sub_Immediate SP, 4
-Mov a, BP
+Mov b, BP
 Sub_Immediate b, 0
 Load_Word b, a
-Push `
+Push a
 Call putchar
-Mov `, BP
-Sub_Immediate a, 0
-Load_Word a, `
-Push _
+Add_Immediate SP, 2
+Mov b, BP
+Sub_Immediate b, 0
+Load_Word b, a
+Push a
 Call putchar
+Add_Immediate SP, 2
 Pop BP
 Ret
 .main
 Push BP
 Mov BP, SP
 Sub_Immediate SP, 0
-Load_Immediate _, 99
-Push _
-Load_Immediate _, 98
-Push _
-Call putchar
+Load_Immediate a, 101
+Push a
+Load_Immediate a, 100
+Push a
+Call test
+Add_Immediate SP, 4
 Pop BP
 Ret
-.putchar Pop a Pop b Print_Char b Push a Ret
+.putchar Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Byte b, a Print_Char b Pop BP Ret
