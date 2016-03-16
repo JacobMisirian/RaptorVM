@@ -6,14 +6,14 @@ Push BP
 Mov BP, SP
 Sub_Immediate SP, 4
 Mov b, BP
-Sub_Immediate b, 0
-Load_Word b, a
+Sub_Immediate b, 2
+Load_Word a, b
 Push a
 Call putchar
 Add_Immediate SP, 2
 Mov b, BP
-Sub_Immediate b, 0
-Load_Word b, a
+Sub_Immediate b, 4
+Load_Word a, b
 Push a
 Call putchar
 Add_Immediate SP, 2
@@ -23,7 +23,7 @@ Ret
 Push BP
 Mov BP, SP
 Sub_Immediate SP, 0
-Load_Immediate a, 101
+Load_Immediate a, 102
 Push a
 Load_Immediate a, 100
 Push a

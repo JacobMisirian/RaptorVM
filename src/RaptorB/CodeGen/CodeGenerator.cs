@@ -84,12 +84,11 @@ namespace RaptorB.CodeGen
         }
         public void Accept(IdentifierNode node)
         {
-            Console.WriteLine("INDEX for " + node.Identifier + ": " + symbolTable.GetIndex(node.Identifier));
+            symbolTable.AddSymbol(node.Identifier);
             pushRegister();
             Console.WriteLine("Mov " + getRegister() + ", BP");
             Console.WriteLine("Sub_Immediate " + getRegister() + ", " + (2 * (1 + symbolTable.GetIndex(node.Identifier))));
-            Console.WriteLine("Load_Word " + getRegister() + ", " + popRegister());
-            pushRegister();
+            Console.WriteLine("Load_Word " + popRegister() + ", " + ((char)++currentRegister).ToString());
         }
         public void Accept(NumberNode node)
         {
