@@ -30,7 +30,7 @@ Mod           |   Modulus two registers and stores result in first register.    
 Shift_Left    |   Shifts first register left by second register and stores result in first. |   ```Shift_Left <reg1>, <reg2>```   |
 Shift_Right   |   Shifts first register right by second register and stores result in first. |  ```Shift_Right <reg1>, <reg2>```  |
 And           |   Preforms and (&) on first and second registers and stores result in first. |   ```And <reg1>, <reg2>```    |
-Or            |   Preforms or (|) on first and second registers and stores result in first.  |   ```Or <reg1>, <reg2>```     |
+Or            |   Preforms or (```|```) on first and second registers and stores result in first.  |   ```Or <reg1>, <reg2>```     |
 Xor           |   Preforms Xor (^) on first and second registers and stores result in first. |   ```Xor <reg1>, <reg2>```    |
 Not           |   Preforms Not (~) on first and second registers and stores result in first. |   ```Not <reg1>, <reg2>```    |
 Inc           |   Increments the number inside the register.                           |   ```Inc <reg>```                   |
