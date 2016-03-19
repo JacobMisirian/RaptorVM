@@ -100,11 +100,20 @@ namespace RaptorB.CodeGen
                     registerTwo = popRegister();
                     conditionSymbol = "symbol" + nextSymbol++;
                     endSymbol = "symbol" + nextSymbol++;
+                    break;
+                case BinaryOperation.GreaterThanOrEqual:
+                    node.Right.Visit(this);
+                    node.Left.Visit(this);
+                    registerOne = popRegister();
+                    registerTwo = popRegister();
+                    conditionSymbol = "symbol" + nextSymbol++;
+                    endSymbol = "symbol" + nextSymbol++;
                     Console.WriteLine("Cmp " + registerTwo + ", " + registerOne);
-                    Console.WriteLine("Jg " + conditionSymbol);
+                    Console.WriteLine("Jge " + conditionSymbol);
+                    Console.WriteLine("And_Immediate FLAGS, 0");
                     Console.WriteLine("Jmp " + endSymbol);
                     Console.WriteLine("." + conditionSymbol);
-                    Console.WriteLine("Cmp " + registerTwo + ", " + registerTwo);
+                    Console.WriteLine("Or_Immediate FLAGS, 1");
                     Console.WriteLine("." + endSymbol);
                     pushRegister();
                     break;
