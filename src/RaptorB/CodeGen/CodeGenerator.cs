@@ -43,7 +43,7 @@ namespace RaptorB.CodeGen
         }
         public void Accept(BinaryOperationNode node)
         {
-            string registerOne, registerTwo;
+            string registerOne, registerTwo, conditionSymbol, endSymbol;
             switch (node.BinaryOperation)
             {
                 case BinaryOperation.Assignment:
@@ -93,6 +93,21 @@ namespace RaptorB.CodeGen
                     Console.WriteLine("Mod " + registerTwo + ", " + registerOne);
                     pushRegister();
                     break;
+                case BinaryOperation.GreaterThan:
+                    node.Right.Visit(this);
+                    node.Left.Visit(this);
+                    registerOne = popRegister();
+                    registerTwo = popRegister();
+                    conditionSymbol = "symbol" + nextSymbol++;
+                    endSymbol = "symbol" + nextSymbol++;
+                    Console.WriteLine("Cmp " + registerTwo + ", " + registerOne);
+                    Console.WriteLine("Jg " + conditionSymbol);
+                    Console.WriteLine("Jmp " + endSymbol);
+                    Console.WriteLine("." + conditionSymbol);
+                    Console.WriteLine("Cmp " + registerTwo + ", " + registerTwo);
+                    Console.WriteLine("." + endSymbol);
+                    pushRegister();
+                    break;
                 default:
                     throw new NotImplementedException("Unimplemented Binary Operation: " + node.BinaryOperation);
             }
@@ -133,7 +148,19 @@ namespace RaptorB.CodeGen
             Console.WriteLine("Pop BP");
             Console.WriteLine("Ret");
         }
-        public void Accept(ConditionalNode node) {}
+        public void Accept(ConditionalNode node)
+        {
+            node.Predicate.Visit(this);
+            string elseSymbol = "symbol" + nextSymbol++;
+            string endSymbol = "symbol" + nextSymbol++;
+            Console.WriteLine("Jne " + elseSymbol);
+            node.Body.Visit(this);
+            Console.WriteLine("Jmp " + endSymbol);
+            Console.WriteLine("." + elseSymbol);
+            node.ElseBody.Visit(this);
+            Console.WriteLine("." + endSymbol);
+
+        }
         public void Accept(ExpressionNode node) {}
         public void Accept(FunctionCallNode node)
         {
@@ -160,6 +187,7 @@ namespace RaptorB.CodeGen
         private const string putint = ".putint Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Byte b, a Print b Pop BP Ret";
 
         private int currentRegister = (int)'b';
+        private int nextSymbol = 0;
 
         private string pushRegister()
         {

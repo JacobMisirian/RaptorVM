@@ -5,17 +5,27 @@ Call main
 .main
 Push BP
 Mov BP, SP
-Sub_Immediate SP, 4
-Load_Immediate b, 104
-Mov a, BP
-Sub_Immediate a, 2
-Store_Word a, b
-Mov d, BP
-Sub_Immediate d, 2
-Load_Word c, d
+Sub_Immediate SP, 2
+Load_Immediate b, 4
+Load_Immediate c, 2
+Cmp b, c
+Jg symbol0
+Jmp symbol1
+.symbol0
+Cmp b, b
+.symbol1
+Jne symbol2
+Load_Immediate c, 121
 Push c
 Call putchar
 Add_Immediate SP, 2
+Jmp symbol3
+.symbol2
+Load_Immediate c, 110
+Push c
+Call putchar
+Add_Immediate SP, 2
+.symbol3
 Add_Immediate SP, 0
 Pop BP
 Ret
