@@ -1,34 +1,49 @@
 Load_Immediate SP, 6000
+Mov BP, SP
 Call main
 .hang Jmp hang
 .test
 Push BP
 Mov BP, SP
-Sub_Immediate SP, 4
-Mov b, BP
-Sub_Immediate b, 2
-Load_Word a, b
-Push a
+Sub_Immediate SP, 6
+Mov a, BP
+Add_Immediate a, 4
+Load_Word b, a
+Mov a, BP
+Sub_Immediate a, 2
+Store_Word a, b
+Mov a, BP
+Add_Immediate a, 6
+Load_Word b, a
+Mov a, BP
+Sub_Immediate a, 4
+Store_Word a, b
+Mov c, BP
+Sub_Immediate c, 6
+Load_Word b, c
+Push b
 Call putchar
 Add_Immediate SP, 2
-Mov b, BP
-Sub_Immediate b, 4
-Load_Word a, b
-Push a
+Mov c, BP
+Sub_Immediate c, 8
+Load_Word b, c
+Push b
 Call putchar
 Add_Immediate SP, 2
+Add_Immediate SP, 0
 Pop BP
 Ret
 .main
 Push BP
 Mov BP, SP
-Sub_Immediate SP, 0
-Load_Immediate a, 102
-Push a
-Load_Immediate a, 100
-Push a
+Sub_Immediate SP, 2
+Load_Immediate b, 101
+Push b
+Load_Immediate b, 98
+Push b
 Call test
 Add_Immediate SP, 4
+Add_Immediate SP, 0
 Pop BP
 Ret
 .putchar Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Byte b, a Print_Char b Pop BP Ret

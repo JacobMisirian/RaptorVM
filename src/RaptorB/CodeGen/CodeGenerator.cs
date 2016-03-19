@@ -20,6 +20,7 @@ namespace RaptorB.CodeGen
         public void Generate()
         {
             Console.WriteLine("Load_Immediate SP, 6000");
+            Console.WriteLine("Mov BP, SP");
             Console.WriteLine("Call main");
             Console.WriteLine(".hang Jmp hang");
             ast.VisitChildren(this);
@@ -67,11 +68,25 @@ namespace RaptorB.CodeGen
             Console.WriteLine("." + node.Name);
             Console.WriteLine("Push BP");
             Console.WriteLine("Mov BP, SP");
-            Console.WriteLine("Sub_Immediate SP, " + (node.Parameters.Count * 2));
+            Console.WriteLine("Sub_Immediate SP, " + symbolTable.GetGlobalIndex(node.Name) * 2);
+
+            foreach (string param in node.Parameters)
+            {
+                symbolTable.AddSymbol(param);
+                Console.WriteLine("Mov a, BP");
+                Console.WriteLine("Add_Immediate a, " + (2 + symbolTable.GetIndex(param)) * 2);
+                Console.WriteLine("Load_Word " + pushRegister() + ", a");
+
+                Console.WriteLine("Mov a, BP");
+                Console.WriteLine("Sub_Immediate a, " + (2 + symbolTable.GetIndex(param) * 2));
+                Console.WriteLine("Store_Word a, " + popRegister());
+            }
+
             node.VisitChildren(this);
+            symbolTable.PopScope();
+            Console.WriteLine("Add_Immediate SP, " + symbolTable.GetIndex(node.Name) * 2);
             Console.WriteLine("Pop BP");
             Console.WriteLine("Ret");
-            symbolTable.PopScope();
         }
         public void Accept(ConditionalNode node) {}
         public void Accept(ExpressionNode node) {}
@@ -99,7 +114,7 @@ namespace RaptorB.CodeGen
 
         private const string putchar = ".putchar Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Byte b, a Print_Char b Pop BP Ret";
 
-        private int currentRegister = (int)'a';
+        private int currentRegister = (int)'b';
 
         private string pushRegister()
         {

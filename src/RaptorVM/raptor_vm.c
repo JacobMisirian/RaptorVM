@@ -62,6 +62,8 @@ static void read_file_to_ram(struct raptor_context *context, char *file_path) {
 // Interprets an instruction.
 static void decode_instruction(struct raptor_context *context, struct raptor_instruction *instruction) {
 	//printf("OpCode:%d\tOperandOne:%d\tOperandTwo:%d\tImmediate:%d\n", instruction->opcode, instruction->operandOne, instruction->operandTwo, instruction->immediate);
+	//printf("IP: %d SP: %d BP: %d StackPeek %d\n", IP & 0xFFFF, SP & 0xFFFF, context->registers[12] & 0xFFFF, *((uint16_t*)(&context->ram[SP])) & 0xFFFF);
+	//getchar();
 	switch (instruction->opcode) {
 		case OP_ADD:
 			context->registers[instruction->operandOne] = set_flags(context, context->registers[instruction->operandOne] + context->registers[instruction->operandTwo]);

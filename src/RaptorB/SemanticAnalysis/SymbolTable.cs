@@ -27,11 +27,14 @@ namespace RaptorB.SemanticAnalysis
         }
 
         public Stack<Scope> Scopes { get; private set; }
+        public Scope GlobalScope { get; private set; }
         private int currentIndex = 0;
 
         public SymbolTable()
         {
             Scopes = new Stack<Scope>();
+            GlobalScope = new Scope();
+            Scopes.Push(GlobalScope);
         }
 
         public void EnterScope()
@@ -53,6 +56,15 @@ namespace RaptorB.SemanticAnalysis
             if (Scopes.Count == 1)
                 currentIndex = 0;
         }
+        public void PopScope(string name)
+        {
+            Scopes.Pop();
+            if (Scopes.Count <= 2)
+            {
+                GlobalScope.Add(name, currentIndex);
+                currentIndex = 0;
+            }
+        }
 
         public void AddSymbol(string symbol)
         {
@@ -65,6 +77,11 @@ namespace RaptorB.SemanticAnalysis
                 if (scope.Contains(symbol))
                     return scope.GetIndex(symbol);
             return -1;
+        }
+
+        public int GetGlobalIndex(string symbol)
+        {
+            return GlobalScope.GetIndex(symbol);
         }
     }
 }
