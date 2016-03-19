@@ -30,7 +30,8 @@ namespace RaptorB.SemanticAnalysis
         }
         public void Accept(AutoNode node)
         {
-            result.AddSymbol(node.Variable);
+            foreach (string variable in node.Variables)
+                result.AddSymbol(variable);
             node.VisitChildren(this);
         }
         public void Accept(BinaryOperationNode node)

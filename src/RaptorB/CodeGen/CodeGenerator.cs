@@ -25,11 +25,13 @@ namespace RaptorB.CodeGen
             Console.WriteLine(".hang Jmp hang");
             ast.VisitChildren(this);
             Console.WriteLine(putchar);
+            Console.WriteLine(putint);
         }
 
         public void Accept(AutoNode node)
         {
-
+            foreach (string variable in node.Variables)
+                symbolTable.AddSymbol(variable);
         }
         public void Accept(ArgListNode node)
         {
@@ -41,12 +43,55 @@ namespace RaptorB.CodeGen
         }
         public void Accept(BinaryOperationNode node)
         {
+            string registerOne, registerTwo;
             switch (node.BinaryOperation)
             {
                 case BinaryOperation.Assignment:
-                    Console.WriteLine("Mov " + pushRegister() + ", BP");
-                    Console.WriteLine("Sub_Immediate " + getRegister() + ", " + (2 * (1 + symbolTable.GetIndex(((IdentifierNode)node.Left).Identifier))));
-                    Console.WriteLine("Store_Word " + getRegister() + ", " + popRegister());
+                    node.Right.Visit(this);
+                    Console.WriteLine("Mov a, BP");
+                    Console.WriteLine("Sub_Immediate a, " + (2 + symbolTable.GetIndex(((IdentifierNode)node.Left).Identifier) * 2));
+                    Console.WriteLine("Store_Word a, " + popRegister());
+                    pushRegister();
+                    break;
+                case BinaryOperation.Addition:
+                    node.Right.Visit(this);
+                    node.Left.Visit(this);
+                    registerOne = popRegister();
+                    registerTwo = popRegister();
+                    Console.WriteLine("Add " + registerTwo + ", " + registerOne);
+                    pushRegister();
+                    break;
+                case BinaryOperation.Subtraction:
+                    node.Right.Visit(this);
+                    node.Left.Visit(this);
+                    registerOne = popRegister();
+                    registerTwo = popRegister();
+                    Console.WriteLine("Sub " + registerTwo + ", " + registerOne);
+                    pushRegister();
+                    break;
+                case BinaryOperation.Multiplication:
+                    node.Right.Visit(this);
+                    node.Left.Visit(this);
+                    registerOne = popRegister();
+                    registerTwo = popRegister();
+                    Console.WriteLine("Mul " + registerTwo + ", " + registerOne);
+                    pushRegister();
+                    break;
+                case BinaryOperation.Division:
+                    node.Right.Visit(this);
+                    node.Left.Visit(this);
+                    registerOne = popRegister();
+                    registerTwo = popRegister();
+                    Console.WriteLine("Div " + registerTwo + ", " + registerOne);
+                    pushRegister();
+                    break;
+                case BinaryOperation.Modulus:
+                    node.Right.Visit(this);
+                    node.Left.Visit(this);
+                    registerOne = popRegister();
+                    registerTwo = popRegister();
+                    Console.WriteLine("Mod " + registerTwo + ", " + registerOne);
+                    pushRegister();
                     break;
                 default:
                     throw new NotImplementedException("Unimplemented Binary Operation: " + node.BinaryOperation);
@@ -112,6 +157,7 @@ namespace RaptorB.CodeGen
         public void Accept(WhileNode node) {}
 
         private const string putchar = ".putchar Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Byte b, a Print_Char b Pop BP Ret";
+        private const string putint = ".putint Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Byte b, a Print b Pop BP Ret";
 
         private int currentRegister = (int)'b';
 

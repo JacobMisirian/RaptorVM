@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using RaptorB.Lexer;
 
@@ -6,11 +7,11 @@ namespace RaptorB.Parser
 {
     public class AutoNode: AstNode
     {
-        public string Variable { get; private set; }
+        public List<string> Variables { get; private set; }
 
-        public AutoNode(string variable)
+        public AutoNode(List<string> variables)
         {
-            Variable = variable;
+            Variables = variables;
         }
 
         public override void Visit(IVisitor visitor)
@@ -27,8 +28,11 @@ namespace RaptorB.Parser
         public static AutoNode Parse(Parser parser)
         {
             parser.ExpectToken(TokenType.Identifier, "auto");
-            string variable = (string)parser.ExpectToken(TokenType.Identifier).Value;
-            return new AutoNode(variable);
+            List<string> variables = new List<string>();
+            variables.Add((string)parser.ExpectToken(TokenType.Identifier).Value);
+            while (parser.AcceptToken(TokenType.Comma))
+                variables.Add((string)parser.ExpectToken(TokenType.Identifier).Value);
+            return new AutoNode(variables);
         }
     }
 }
