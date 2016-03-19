@@ -5,7 +5,7 @@ Call main
 .test
 Push BP
 Mov BP, SP
-Sub_Immediate SP, 6
+Sub_Immediate SP, 8
 Mov a, BP
 Add_Immediate a, 4
 Load_Word b, a
@@ -18,15 +18,31 @@ Load_Word b, a
 Mov a, BP
 Sub_Immediate a, 4
 Store_Word a, b
+Mov a, BP
+Add_Immediate a, 8
+Load_Word b, a
+Mov a, BP
+Sub_Immediate a, 6
+Store_Word a, b
+Mov c, BP
+Sub_Immediate c, 4
+Load_Word b, c
+Push b
+Call putchar
+Add_Immediate SP, 2
+Mov c, BP
+Sub_Immediate c, 2
+Load_Word b, c
+Push b
+Call putchar
+Add_Immediate SP, 2
 Mov c, BP
 Sub_Immediate c, 6
 Load_Word b, c
 Push b
 Call putchar
 Add_Immediate SP, 2
-Mov c, BP
-Sub_Immediate c, 8
-Load_Word b, c
+Load_Immediate b, 114
 Push b
 Call putchar
 Add_Immediate SP, 2
@@ -37,12 +53,14 @@ Ret
 Push BP
 Mov BP, SP
 Sub_Immediate SP, 2
-Load_Immediate b, 101
+Load_Immediate b, 103
 Push b
-Load_Immediate b, 98
+Load_Immediate b, 104
+Push b
+Load_Immediate b, 105
 Push b
 Call test
-Add_Immediate SP, 4
+Add_Immediate SP, 6
 Add_Immediate SP, 0
 Pop BP
 Ret

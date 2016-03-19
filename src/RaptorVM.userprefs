@@ -2,11 +2,13 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="RaptorB/CodeGen/CodeGenerator.cs">
     <Files>
-      <File FileName="RaptorB/CodeGen/CodeGenerator.cs" Line="91" Column="107" />
+      <File FileName="RaptorB/CodeGen/CodeGenerator.cs" Line="105" Column="114" />
       <File FileName="RaptorB/Parser/Nodes/ExpressionNode.cs" Line="1" Column="1" />
       <File FileName="RaptorVM/raptor_vm.c" Line="1" Column="1" />
       <File FileName="RaptorASM/Assembler/Assembler.cs" Line="1" Column="1" />
-      <File FileName="RaptorB/SemanticAnalysis/SymbolTable.cs" Line="1" Column="1" />
+      <File FileName="RaptorB/SemanticAnalysis/SymbolTable.cs" Line="62" Column="34" />
+      <File FileName="RaptorB/SemanticAnalysis/SemanticAnalyzer.cs" Line="53" Column="38" />
+      <File FileName="RaptorB/Parser/IVisitor.cs" Line="7" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -20,6 +22,9 @@
               <Node name="CodeGenerator.cs" selected="True" />
             </Node>
             <Node name="Interpreter" expanded="True" />
+            <Node name="Parser" expanded="True">
+              <Node name="Nodes" expanded="True" />
+            </Node>
             <Node name="SemanticAnalysis" expanded="True" />
           </Node>
           <Node name="RaptorVM" expanded="True" />
