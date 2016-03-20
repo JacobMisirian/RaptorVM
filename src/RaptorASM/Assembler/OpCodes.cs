@@ -11,7 +11,7 @@ namespace RaptorASM
             "And",  "Or", "Xor", "Not", "Cmp", "Je", "Jne", "Jg", "Jge", "Jl", "Jle", "Print_Char", "Load_Byte", "Load_Word",
             "Store_Byte", "Store_Word", "Inc", "Dec", "Push", "Pop", "Call", "Ret", "Add_Immediate", "Sub_Immediate",
             "Mul_Immediate", "Div_Immediate", "Mod_Immediate", "Mov_Immediate", "Print_Immediate", "Print_Char_Immediate",
-            "Shift_Left_Immediate", "Shift_Right_Immediate", "And_Immedate", "Or_Immediate", "Xor_Immediate", "Cmp_Immediate",
+            "Shift_Left_Immediate", "Shift_Right_Immediate", "And_Immediate", "Or_Immediate", "Xor_Immediate", "Cmp_Immediate",
             "Push_Immediate"
         };
 

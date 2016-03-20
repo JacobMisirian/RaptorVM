@@ -2,65 +2,31 @@ Load_Immediate SP, 6000
 Mov BP, SP
 Call main
 .hang Jmp hang
-.recurse
+.main
 Push BP
 Mov BP, SP
-Sub_Immediate SP, 4
-Mov a, BP
-Add_Immediate a, 4
-Load_Word b, a
-Mov a, BP
-Sub_Immediate a, 2
-Store_Word a, b
-Load_Immediate b, 10
-Mov d, BP
-Sub_Immediate d, 2
-Load_Word c, d
+Sub_Immediate SP, 2
+Load_Immediate b, 2
+Load_Immediate c, 5
 Cmp b, c
 Jge symbol0
+And_Immediate FLAGS, 0
 Jmp symbol1
 .symbol0
 Or_Immediate FLAGS, 1
 .symbol1
 Jne symbol2
-Load_Immediate c, 100
+Load_Immediate c, 121
 Push c
 Call putchar
 Add_Immediate SP, 2
 Jmp symbol3
 .symbol2
-Mov d, BP
-Sub_Immediate d, 2
-Load_Word c, d
+Load_Immediate c, 110
 Push c
-Call putint
-Add_Immediate SP, 2
-Load_Immediate c, 1
-Mov e, BP
-Sub_Immediate e, 2
-Load_Word d, e
-Add c, d
-Mov a, BP
-Sub_Immediate a, 2
-Store_Word a, c
-Mov e, BP
-Sub_Immediate e, 2
-Load_Word d, e
-Push d
-Call recurse
+Call putchar
 Add_Immediate SP, 2
 .symbol3
-Add_Immediate SP, 0
-Pop BP
-Ret
-.main
-Push BP
-Mov BP, SP
-Sub_Immediate SP, 2
-Load_Immediate d, 0
-Push d
-Call recurse
-Add_Immediate SP, 2
 Add_Immediate SP, 0
 Pop BP
 Ret
