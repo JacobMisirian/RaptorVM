@@ -66,19 +66,19 @@ namespace RaptorB.Parser
                 {
                     case "*":
                         parser.AcceptToken(TokenType.Operation);
-                        left = new BinaryOperationNode(BinaryOperation.Multiplication, left, parseComparison(parser));
+                        left = new BinaryOperationNode(BinaryOperation.Multiplication, left, parseUnary(parser));
                         continue;
                     case "/":
                         parser.AcceptToken(TokenType.Operation);
-                        left = new BinaryOperationNode(BinaryOperation.Division, left, parseComparison(parser));
+                        left = new BinaryOperationNode(BinaryOperation.Division, left, parseUnary(parser));
                         continue;
                     case "%":
                         parser.AcceptToken(TokenType.Operation);
-                        left = new BinaryOperationNode(BinaryOperation.Modulus, left, parseComparison(parser));
+                        left = new BinaryOperationNode(BinaryOperation.Modulus, left, parseUnary(parser));
                         continue;
                     case "=":
                         parser.AcceptToken(TokenType.Assignment);
-                        left = new BinaryOperationNode(BinaryOperation.Assignment, left, parseComparison(parser));
+                        left = new BinaryOperationNode(BinaryOperation.Assignment, left, parseUnary(parser));
                         continue;
                     default:
                         break;
@@ -86,6 +86,26 @@ namespace RaptorB.Parser
                 break;
             }
             return left;
+        }
+
+        private static AstNode parseUnary(Parser parser)
+        {
+            if (parser.MatchToken(TokenType.Operation))
+            {
+                switch ((string)parser.CurrentToken().Value)
+                {
+                    case "~":
+                        parser.ExpectToken(TokenType.Operation);
+                        return new UnaryOperationNode(UnaryOperation.Not, parseUnary(parser));
+                    case "*":
+                        parser.ExpectToken(TokenType.Operation);
+                        return new UnaryOperationNode(UnaryOperation.Dereference, parseUnary(parser));
+                    case "&":
+                        parser.ExpectToken(TokenType.Operation);
+                        return new UnaryOperationNode(UnaryOperation.Reference, parseUnary(parser));
+                }
+            }
+            return parseComparison(parser);
         }
 
         private static AstNode parseComparison(Parser parser)

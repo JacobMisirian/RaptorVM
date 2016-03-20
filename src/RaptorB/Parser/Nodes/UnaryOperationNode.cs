@@ -2,14 +2,14 @@ using System;
 
 namespace RaptorB.Parser
 {
-    public class IdentifierNode: AstNode
+    public class UnaryOperationNode: AstNode
     {
-        public string Identifier { get; private set; }
-        public IdentifierType IdentifierType { get; private set; }
-        public IdentifierNode(string identifier, IdentifierType identifierType = IdentifierType.Normal)
+        public UnaryOperation UnaryOperation { get; private set; }
+        public AstNode Body { get; private set; }
+        public UnaryOperationNode(UnaryOperation unaryOperation, AstNode body)
         {
-            Identifier = identifier;
-            IdentifierType = identifierType;
+            UnaryOperation = unaryOperation;
+            Body = body;
         }
 
         public override void Visit(IVisitor visitor)
@@ -23,9 +23,9 @@ namespace RaptorB.Parser
         }
     }
 
-    public enum IdentifierType
+    public enum UnaryOperation
     {
-        Normal,
+        Not,
         Reference,
         Dereference
     }

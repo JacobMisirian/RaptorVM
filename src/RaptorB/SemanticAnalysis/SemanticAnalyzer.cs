@@ -53,6 +53,7 @@ namespace RaptorB.SemanticAnalysis
             node.VisitChildren(this);
             result.PopScope(node.Name);
         }
+        public void Accept(UnaryOperationNode node) {}
         public void Accept(IdentifierNode node) {}
         public void Accept(NumberNode node) {}
         public void Accept(CharNode node) {}

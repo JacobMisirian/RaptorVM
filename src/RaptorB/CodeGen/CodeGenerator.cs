@@ -1,8 +1,8 @@
 using System;
+using System.Text;
 
 using RaptorB.Parser;
 using RaptorB.SemanticAnalysis;
-using RaptorB.Interpreter;
 
 namespace RaptorB.CodeGen
 {
@@ -10,6 +10,7 @@ namespace RaptorB.CodeGen
     {
         private AstNode ast;
         private SymbolTable symbolTable;
+        private StringBuilder result;
 
         public CodeGenerator(AstNode ast, SymbolTable symbolTable)
         {
@@ -17,15 +18,17 @@ namespace RaptorB.CodeGen
             this.symbolTable = symbolTable;
         }
 
-        public void Generate()
+        public string Generate()
         {
-            Console.WriteLine("Load_Immediate SP, 6000");
-            Console.WriteLine("Mov BP, SP");
-            Console.WriteLine("Call main");
-            Console.WriteLine(".hang Jmp hang");
+            result = new StringBuilder();
+            append("Load_Immediate SP, 6000");
+            append("Mov BP, SP");
+            append("Call main");
+            append(".hang Jmp hang");
             ast.VisitChildren(this);
-            Console.WriteLine(putchar);
-            Console.WriteLine(putint);
+            append(putchar);
+            append(putint);
+            return result.ToString();
         }
 
         public void Accept(AutoNode node)
@@ -38,19 +41,19 @@ namespace RaptorB.CodeGen
             for (int i = node.Children.Count - 1; i >= 0; i--)
             {
                 node.Children[i].Visit(this);
-                Console.WriteLine("Push " + popRegister());
+                append("Push {0}", popRegister());
             }
         }
         public void Accept(BinaryOperationNode node)
         {
-            string registerOne, registerTwo, conditionSymbol, endSymbol;
+            string registerOne, registerTwo;
             switch (node.BinaryOperation)
             {
                 case BinaryOperation.Assignment:
                     node.Right.Visit(this);
-                    Console.WriteLine("Mov a, BP");
-                    Console.WriteLine("Sub_Immediate a, " + (2 + symbolTable.GetIndex(((IdentifierNode)node.Left).Identifier) * 2));
-                    Console.WriteLine("Store_Word a, " + popRegister());
+                    append("Mov a, BP");
+                    append("Sub_Immediate a, {0}", (2 + symbolTable.GetIndex(((IdentifierNode)node.Left).Identifier) * 2));
+                    append("Store_Word a, {0}", popRegister());
                     pushRegister();
                     break;
                 case BinaryOperation.Addition:
@@ -58,7 +61,7 @@ namespace RaptorB.CodeGen
                     node.Left.Visit(this);
                     registerOne = popRegister();
                     registerTwo = popRegister();
-                    Console.WriteLine("Add " + registerTwo + ", " + registerOne);
+                    append("Add {0}, {1}", registerTwo, registerOne);
                     pushRegister();
                     break;
                 case BinaryOperation.Subtraction:
@@ -66,7 +69,7 @@ namespace RaptorB.CodeGen
                     node.Left.Visit(this);
                     registerOne = popRegister();
                     registerTwo = popRegister();
-                    Console.WriteLine("Sub " + registerTwo + ", " + registerOne);
+                    append("Sub {0}, {1}", registerTwo, registerOne);
                     pushRegister();
                     break;
                 case BinaryOperation.Multiplication:
@@ -74,7 +77,7 @@ namespace RaptorB.CodeGen
                     node.Left.Visit(this);
                     registerOne = popRegister();
                     registerTwo = popRegister();
-                    Console.WriteLine("Mul " + registerTwo + ", " + registerOne);
+                    append("Mul {0}, {1}", registerTwo, registerOne);
                     pushRegister();
                     break;
                 case BinaryOperation.Division:
@@ -82,7 +85,7 @@ namespace RaptorB.CodeGen
                     node.Left.Visit(this);
                     registerOne = popRegister();
                     registerTwo = popRegister();
-                    Console.WriteLine("Div " + registerTwo + ", " + registerOne);
+                    append("Div {0}, {1}", registerTwo, registerOne);
                     pushRegister();
                     break;
                 case BinaryOperation.Modulus:
@@ -90,7 +93,7 @@ namespace RaptorB.CodeGen
                     node.Left.Visit(this);
                     registerOne = popRegister();
                     registerTwo = popRegister();
-                    Console.WriteLine("Mod " + registerTwo + ", " + registerOne);
+                    append("Mod {0}, {1}", registerTwo, registerOne);
                     pushRegister();
                     break;
                 case BinaryOperation.EqualTo:
@@ -98,7 +101,7 @@ namespace RaptorB.CodeGen
                     node.Left.Visit(this);
                     registerOne = popRegister();
                     registerTwo = popRegister();
-                    Console.WriteLine("Cmp " + registerOne + ", " + registerTwo);
+                    append("Cmp {0}, {1}", registerTwo, registerOne);
                     pushRegister();
                     break;
                 case BinaryOperation.NotEqualTo:
@@ -106,8 +109,8 @@ namespace RaptorB.CodeGen
                     node.Left.Visit(this);
                     registerOne = popRegister();
                     registerTwo = popRegister();
-                    Console.WriteLine("Cmp " + registerOne + ", " + registerTwo);
-                    Console.WriteLine("Not FLAGS");
+                    append("Cmp {0}, {1}", registerTwo, registerOne);
+                    append("Not FLAGS");
                     pushRegister();
                     break;
                 case BinaryOperation.GreaterThan:
@@ -115,10 +118,10 @@ namespace RaptorB.CodeGen
                     node.Left.Visit(this);
                     registerOne = popRegister();
                     registerTwo = popRegister();
-                    Console.WriteLine("Cmp " + registerTwo + ", " + registerOne);
-                    Console.WriteLine("Mov " + registerOne + ", FLAGS");
-                    Console.WriteLine("And_Immediate " + registerOne + ", 2");
-                    Console.WriteLine("Xor_Immediate " + registerOne + ", 2");
+                    append("Cmp {0}, {1}", registerTwo, registerOne);
+                    append("Mov {0}, FLAGS", registerOne);
+                    append("And_Immediate {0}, 2", registerOne);
+                    append("Xor_Immediate {0}, 2", registerOne);
                     pushRegister();
                     break;
                 case BinaryOperation.GreaterThanOrEqual:
@@ -126,10 +129,10 @@ namespace RaptorB.CodeGen
                     node.Left.Visit(this);
                     registerOne = popRegister();
                     registerTwo = popRegister();
-                    Console.WriteLine("Cmp " + registerTwo + ", " + registerOne);
-                    Console.WriteLine("Mov " + registerOne + ", FLAGS");
-                    Console.WriteLine("And_Immediate " + registerOne + ", 3");
-                    Console.WriteLine("Xor_Immediate " + registerOne + ", 2");
+                    append("Cmp {0}, {1}", registerTwo, registerOne);
+                    append("Mov {0}, FLAGS", registerOne);
+                    append("And_Immediate {0}, 3", registerOne);
+                    append("Xor_Immediate {0}, 2", registerOne);
                     pushRegister();
                     break;
                 case BinaryOperation.LessThan:
@@ -137,9 +140,9 @@ namespace RaptorB.CodeGen
                     node.Left.Visit(this);
                     registerOne = popRegister();
                     registerTwo = popRegister();
-                    Console.WriteLine("Cmp " + registerTwo + ", " + registerOne);
-                    Console.WriteLine("Mov " + registerOne + ", FLAGS");
-                    Console.WriteLine("And_Immediate " + registerOne + ", 2");
+                    append("Cmp {0}, {1}", registerTwo, registerOne);
+                    append("Mov {0}, FLAGS", registerOne);
+                    append("And_Immediate {0}, 3", registerOne);
                     pushRegister();
                     break;
                 case BinaryOperation.LessThanOrEqual:
@@ -147,9 +150,9 @@ namespace RaptorB.CodeGen
                     node.Left.Visit(this);
                     registerOne = popRegister();
                     registerTwo = popRegister();
-                    Console.WriteLine("Cmp " + registerTwo + ", " + registerOne);
-                    Console.WriteLine("Mov " + registerOne + ", FLAGS");
-                    Console.WriteLine("And_Immediate " + registerOne + ", 3");
+                    append("Cmp {0}, {1}", registerTwo, registerOne);
+                    append("Mov {0}, FLAGS", registerOne);
+                    append("And_Immediate {0}, 2", registerOne);
                     pushRegister();
                     break;
                 default:
@@ -158,7 +161,7 @@ namespace RaptorB.CodeGen
         }
         public void Accept(CharNode node)
         {
-            Console.WriteLine("Load_Immediate " + pushRegister() + ", " + Convert.ToInt16(node.Char));
+            append("Load_Immediate " + pushRegister() + ", " + Convert.ToInt16(node.Char));
         }
         public void Accept(CodeBlockNode node)
         {
@@ -169,40 +172,41 @@ namespace RaptorB.CodeGen
         public void Accept(FunctionDeclarationNode node)
         {
             symbolTable.EnterScope();
-            Console.WriteLine("." + node.Name);
-            Console.WriteLine("Push BP");
-            Console.WriteLine("Mov BP, SP");
-            Console.WriteLine("Sub_Immediate SP, " + symbolTable.GetGlobalIndex(node.Name) * 2);
+            append("." + node.Name);
+            append("Push BP");
+            append("Mov BP, SP");
+            append("Sub_Immediate SP, {0}", symbolTable.GetGlobalIndex(node.Name) * 2);
 
             foreach (string param in node.Parameters)
             {
                 symbolTable.AddSymbol(param);
-                Console.WriteLine("Mov a, BP");
-                Console.WriteLine("Add_Immediate a, " + (2 + symbolTable.GetIndex(param)) * 2);
-                Console.WriteLine("Load_Word " + pushRegister() + ", a");
+                append("Mov a, BP");
+                append("Add_Immediate a, {0}", (2 + symbolTable.GetIndex(param)) * 2);
+                append("Load_Word " + pushRegister() + ", a");
 
-                Console.WriteLine("Mov a, BP");
-                Console.WriteLine("Sub_Immediate a, " + (2 + symbolTable.GetIndex(param) * 2));
-                Console.WriteLine("Store_Word a, " + popRegister());
+                append("Mov a, BP");
+                append("Sub_Immediate a, {0}", (2 + symbolTable.GetIndex(param) * 2));
+                append("Store_Word a, {0}", popRegister());
             }
 
             node.VisitChildren(this);
             symbolTable.PopScope();
-            Console.WriteLine("Add_Immediate SP, " + symbolTable.GetIndex(node.Name) * 2);
-            Console.WriteLine("Pop BP");
-            Console.WriteLine("Ret");
+            append("Add_Immediate SP, {0}", symbolTable.GetIndex(node.Name) * 2);
+            append("Pop BP");
+            append("Ret");
         }
         public void Accept(ConditionalNode node)
         {
             node.Predicate.Visit(this);
             string elseSymbol = "symbol" + nextSymbol++;
             string endSymbol = "symbol" + nextSymbol++;
-            Console.WriteLine("Jne " + elseSymbol);
+            append("And {0}, {1}", getRegister(), getRegister());
+            append("Jne {0}", elseSymbol);
             node.Body.Visit(this);
-            Console.WriteLine("Jmp " + endSymbol);
-            Console.WriteLine("." + elseSymbol);
+            append("Jmp {0}", endSymbol);
+            append(".{0}", elseSymbol);
             node.ElseBody.Visit(this);
-            Console.WriteLine("." + endSymbol);
+            append(".{0}", endSymbol);
 
         }
         public void Accept(ExpressionNode node) {}
@@ -210,22 +214,37 @@ namespace RaptorB.CodeGen
         {
             node.Arguments.Visit(this);
             string call = ((IdentifierNode)node.Target).Identifier;
-            Console.WriteLine("Call " + call);
-            Console.WriteLine("Add_Immediate SP, " + node.Arguments.Children.Count * 2);
+            append("Call {0}", call);
+            append("Add_Immediate SP, {0}", node.Arguments.Children.Count * 2);
         }
         public void Accept(IdentifierNode node)
         {
             pushRegister();
-            Console.WriteLine("Mov " + getRegister() + ", BP");
-            Console.WriteLine("Sub_Immediate " + getRegister() + ", " + (2 + symbolTable.GetIndex(node.Identifier) * 2));
-            Console.WriteLine("Load_Word " + popRegister() + ", " + ((char)++currentRegister).ToString());
+            append("Mov {0}, BP", getRegister());
+            append("Sub_Immediate {0}, {1}", getRegister(), (2 + symbolTable.GetIndex(node.Identifier) * 2));
+            append("Load_Word {0}, {1}", popRegister(), ((char)++currentRegister).ToString());
         }
         public void Accept(NumberNode node)
         {
-            Console.WriteLine("Load_Immediate " + pushRegister() + ", " + node.Number);
+            append("Load_Immediate {0}, {1}", pushRegister(), node.Number);
         }
         public void Accept(StatementNode node) {}
         public void Accept(WhileNode node) {}
+        public void Accept(UnaryOperationNode node)
+        {
+            switch (node.UnaryOperation)
+            {
+                case UnaryOperation.Not:
+                    node.Body.VisitChildren(this);
+                    append("Not {0}", getRegister());
+                    break;
+                case UnaryOperation.Reference:
+                    pushRegister();
+                    append("Mov {0}, BP", getRegister());
+                    append("Sub_Immediate {0}, {1}", getRegister(), (2 + symbolTable.GetIndex(((IdentifierNode)node.Body).Identifier) * 2));
+                    break;
+            }
+        }
 
         private const string putchar = ".putchar Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Byte b, a Print_Char b Pop BP Ret";
         private const string putint = ".putint Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Byte b, a Print b Pop BP Ret";
@@ -246,6 +265,11 @@ namespace RaptorB.CodeGen
         private string getRegister()
         {
             return ((char)currentRegister).ToString();
+        }
+
+        private void append(string line, params object[] args)
+        {
+            result.AppendLine(string.Format(line, args));
         }
     }
 }

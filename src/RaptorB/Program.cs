@@ -8,8 +8,6 @@ namespace RaptorB
     {
         public static void Main(string[] args)
         {
-            Interpreter.Interpreter interpreter = new Interpreter.Interpreter();
-
             while (true)
             {
                 string source = Console.ReadLine();
@@ -18,7 +16,7 @@ namespace RaptorB
                     Console.WriteLine(token.ToString());*/
                 var ast = new Parser.Parser(tokens).Parse();
                 var symbolTable = new SemanticAnalysis.SemanticAnalyzer(ast).Analyze();
-                new CodeGen.CodeGenerator(ast, symbolTable).Generate();
+                Console.WriteLine(new CodeGen.CodeGenerator(ast, symbolTable).Generate());
             }
         }
     }
