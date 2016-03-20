@@ -19,7 +19,7 @@ namespace RaptorASM
             whiteSpace();
             while (peekChar() != -1)
             {
-                if (char.IsLetterOrDigit((char)peekChar()))
+                if (char.IsLetterOrDigit((char)peekChar()) || (char)peekChar() == '_')
                     result.Add(scanData());
                 else
                 {
@@ -58,7 +58,7 @@ namespace RaptorASM
         {
             string result = "";
             double temp = 0;
-            while ((char.IsLetterOrDigit((char)peekChar()) && peekChar() != -1) || ((char)(peekChar()) == '.') || ((char)peekChar()) == '_')
+            while ((char.IsLetterOrDigit((char)peekChar()) || ((char)(peekChar()) == '.' || ((char)peekChar()) == '_' || (char)peekChar() == '-')) && peekChar() != -1)
                 result += ((char)readChar()).ToString();
             if (double.TryParse(result, out temp))
                 return new Token(TokenType.Number, result);

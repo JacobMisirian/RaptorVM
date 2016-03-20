@@ -93,28 +93,63 @@ namespace RaptorB.CodeGen
                     Console.WriteLine("Mod " + registerTwo + ", " + registerOne);
                     pushRegister();
                     break;
+                case BinaryOperation.EqualTo:
+                    node.Right.Visit(this);
+                    node.Left.Visit(this);
+                    registerOne = popRegister();
+                    registerTwo = popRegister();
+                    Console.WriteLine("Cmp " + registerOne + ", " + registerTwo);
+                    pushRegister();
+                    break;
+                case BinaryOperation.NotEqualTo:
+                    node.Right.Visit(this);
+                    node.Left.Visit(this);
+                    registerOne = popRegister();
+                    registerTwo = popRegister();
+                    Console.WriteLine("Cmp " + registerOne + ", " + registerTwo);
+                    Console.WriteLine("Not FLAGS");
+                    pushRegister();
+                    break;
                 case BinaryOperation.GreaterThan:
                     node.Right.Visit(this);
                     node.Left.Visit(this);
                     registerOne = popRegister();
                     registerTwo = popRegister();
-                    conditionSymbol = "symbol" + nextSymbol++;
-                    endSymbol = "symbol" + nextSymbol++;
+                    Console.WriteLine("Cmp " + registerTwo + ", " + registerOne);
+                    Console.WriteLine("Mov " + registerOne + ", FLAGS");
+                    Console.WriteLine("And_Immediate " + registerOne + ", 2");
+                    Console.WriteLine("Xor_Immediate " + registerOne + ", 2");
+                    pushRegister();
                     break;
                 case BinaryOperation.GreaterThanOrEqual:
                     node.Right.Visit(this);
                     node.Left.Visit(this);
                     registerOne = popRegister();
                     registerTwo = popRegister();
-                    conditionSymbol = "symbol" + nextSymbol++;
-                    endSymbol = "symbol" + nextSymbol++;
                     Console.WriteLine("Cmp " + registerTwo + ", " + registerOne);
-                    Console.WriteLine("Jge " + conditionSymbol);
-                    Console.WriteLine("And_Immediate FLAGS, 0");
-                    Console.WriteLine("Jmp " + endSymbol);
-                    Console.WriteLine("." + conditionSymbol);
-                    Console.WriteLine("Or_Immediate FLAGS, 1");
-                    Console.WriteLine("." + endSymbol);
+                    Console.WriteLine("Mov " + registerOne + ", FLAGS");
+                    Console.WriteLine("And_Immediate " + registerOne + ", 3");
+                    Console.WriteLine("Xor_Immediate " + registerOne + ", 2");
+                    pushRegister();
+                    break;
+                case BinaryOperation.LessThan:
+                    node.Right.Visit(this);
+                    node.Left.Visit(this);
+                    registerOne = popRegister();
+                    registerTwo = popRegister();
+                    Console.WriteLine("Cmp " + registerTwo + ", " + registerOne);
+                    Console.WriteLine("Mov " + registerOne + ", FLAGS");
+                    Console.WriteLine("And_Immediate " + registerOne + ", 2");
+                    pushRegister();
+                    break;
+                case BinaryOperation.LessThanOrEqual:
+                    node.Right.Visit(this);
+                    node.Left.Visit(this);
+                    registerOne = popRegister();
+                    registerTwo = popRegister();
+                    Console.WriteLine("Cmp " + registerTwo + ", " + registerOne);
+                    Console.WriteLine("Mov " + registerOne + ", FLAGS");
+                    Console.WriteLine("And_Immediate " + registerOne + ", 3");
                     pushRegister();
                     break;
                 default:

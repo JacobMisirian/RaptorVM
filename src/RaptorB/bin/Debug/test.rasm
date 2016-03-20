@@ -3,32 +3,197 @@ Mov BP, SP
 Call main
 .hang Jmp hang
 .main
-Push BP
-Mov BP, SP
-Sub_Immediate SP, 2
-Load_Immediate b, 2
-Load_Immediate c, 5
-Cmp b, c
-Jge symbol0
-And_Immediate FLAGS, 0
-Jmp symbol1
-.symbol0
-Or_Immediate FLAGS, 1
-.symbol1
-Jne symbol2
-Load_Immediate c, 121
-Push c
-Call putchar
-Add_Immediate SP, 2
-Jmp symbol3
-.symbol2
-Load_Immediate c, 110
-Push c
-Call putchar
-Add_Immediate SP, 2
-.symbol3
-Add_Immediate SP, 0
-Pop BP
-Ret
+    Push BP
+    Mov BP, SP
+    Sub_Immediate SP, 2
+    Load_Immediate b, 4
+    Load_Immediate c, 2
+    Cmp c, b
+    Mov c, FLAGS
+    And_Immediate  c, 3
+    Xor_Immediate c, 2
+    And b, b
+    Je ___symbol0___
+    Load_Immediate b, 84
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    Jmp ___symbol1___
+    .___symbol0___
+    Load_Immediate b, 70
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    .___symbol1___
+    Load_Immediate b, 2
+    Load_Immediate c, 4
+    Cmp c, b
+    Mov c, FLAGS
+    And_Immediate  c, 3
+    Xor_Immediate c, 2
+    And b, b
+    Je ___symbol2___
+    Load_Immediate b, 84
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    Jmp ___symbol3___
+    .___symbol2___
+    Load_Immediate b, 70
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    .___symbol3___
+    Load_Immediate b, 2
+    Load_Immediate c, 4
+    Cmp c, b
+    Mov c, FLAGS
+    And_Immediate c, 1
+    And b, b
+    Je ___symbol4___
+    Load_Immediate b, 84
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    Jmp ___symbol5___
+    .___symbol4___
+    Load_Immediate b, 70
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    .___symbol5___
+    Load_Immediate b, 4
+    Load_Immediate c, 4
+    Cmp c, b
+    Mov c, FLAGS
+    And_Immediate c, 1
+    And b, b
+    Je ___symbol6___
+    Load_Immediate b, 84
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    Jmp ___symbol7___
+    .___symbol6___
+    Load_Immediate b, 70
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    .___symbol7___
+    Load_Immediate b, 2
+    Load_Immediate c, 4
+    Cmp c, b
+    Mov c, FLAGS
+    And_Immediate c, 1
+    Not c
+    And b, b
+    Je ___symbol8___
+    Load_Immediate b, 84
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    Jmp ___symbol9___
+    .___symbol8___
+    Load_Immediate b, 70
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    .___symbol9___
+    Load_Immediate b, 4
+    Load_Immediate c, 4
+    Cmp c, b
+    Mov c, FLAGS
+    And_Immediate c, 1
+    Not c
+    And b, b
+    Je ___symbol10___
+    Load_Immediate b, 84
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    Jmp ___symbol11___
+    .___symbol10___
+    Load_Immediate b, 70
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    .___symbol11___
+    Load_Immediate b, 4
+    Load_Immediate c, 2
+    Cmp c, b
+    Mov c, FLAGS
+    And_Immediate  c, 2
+    Not c
+    And b, b
+    Je ___symbol12___
+    Load_Immediate b, 84
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    Jmp ___symbol13___
+    .___symbol12___
+    Load_Immediate b, 70
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    .___symbol13___
+    Load_Immediate b, 2
+    Load_Immediate c, 4
+    Cmp c, b
+    Mov c, FLAGS
+    And_Immediate  c, 2
+    Not c
+    And b, b
+    Je ___symbol14___
+    Load_Immediate b, 84
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    Jmp ___symbol15___
+    .___symbol14___
+    Load_Immediate b, 70
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    .___symbol15___
+    Load_Immediate b, 4
+    Load_Immediate c, 2
+    Cmp c, b
+    Mov c, FLAGS
+    And_Immediate  c, 2
+    And b, b
+    Je ___symbol16___
+    Load_Immediate b, 84
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    Jmp ___symbol17___
+    .___symbol16___
+    Load_Immediate b, 70
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    .___symbol17___
+    Load_Immediate b, 2
+    Load_Immediate c, 4
+    Cmp c, b
+    Mov c, FLAGS
+    And_Immediate  c, 2
+    And b, b
+    Je ___symbol18___
+    Load_Immediate b, 84
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    Jmp ___symbol19___
+    .___symbol18___
+    Load_Immediate b, 70
+    Push b
+    Call putchar
+    Add_Immediate SP, 2
+    .___symbol19___
+    Add_Immediate SP, 2
+    Pop BP
+    Ret
 .putchar Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Byte b, a Print_Char b Pop BP Ret
 .putint Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Byte b, a Print b Pop BP Ret

@@ -95,7 +95,7 @@ namespace RaptorB.Lexer
         private Token scanData()
         {
             string result = "";
-            while (char.IsLetterOrDigit((char)peekChar()) && peekChar() != -1)
+            while ((char.IsLetterOrDigit((char)peekChar()) || (char)peekChar() == '_') && peekChar() != -1)
                 result += ((char)readChar()).ToString();
             try
             {

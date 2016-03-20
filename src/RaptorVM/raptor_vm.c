@@ -197,19 +197,19 @@ static void decode_instruction(struct raptor_context *context, struct raptor_ins
 			fflush(stdout);
 			break;
 		case OP_SHIFT_LEFT_IMMEDIATE:
-			context->registers[instruction->operandOne] = set_flags(context, instruction->operandOne << instruction->immediate);
+			context->registers[instruction->operandOne] = set_flags(context, context->registers[instruction->operandOne] << instruction->immediate);
 			break;
 		case OP_SHIFT_RIGHT_IMMEDIATE:
-			context->registers[instruction->operandOne] = set_flags(context, instruction->operandOne >> instruction->immediate);
+			context->registers[instruction->operandOne] = set_flags(context, context->registers[instruction->operandOne] >> instruction->immediate);
 			break;
 		case OP_AND_IMMEDIATE:
-			context->registers[instruction->operandOne] = set_flags(context, instruction->operandOne & instruction->immediate);
+			context->registers[instruction->operandOne] = set_flags(context, context->registers[instruction->operandOne] & instruction->immediate);
 			break;
 		case OP_OR_IMMEDIATE:
-			context->registers[instruction->operandOne] = set_flags(context, instruction->operandOne | instruction->immediate);
+			context->registers[instruction->operandOne] = set_flags(context, context->registers[instruction->operandOne] | instruction->immediate);
 			break;
 		case OP_XOR_IMMEDIATE:
-			context->registers[instruction->operandOne] = set_flags(context, instruction->operandOne ^ instruction->immediate);
+			context->registers[instruction->operandOne] = set_flags(context, context->registers[instruction->operandOne] ^ instruction->immediate);
 			break;
 		case OP_CMP_IMMEDIATE:
 			set_flags(context, context->registers[instruction->operandOne] - instruction->immediate);
@@ -227,9 +227,9 @@ static uint16_t set_flags(struct raptor_context *context, uint16_t value) {
 	else
 		FLAGS &= ~ZERO_FLAG;
 		
-	if (value < 0)
+	if ((int16_t)value < 0)
 		FLAGS |= SIGN_FLAG;
-	else if (value > 0)
+	else if ((int16_t)value > 0)
 		FLAGS &= ~SIGN_FLAG;
 	return value;
 }
