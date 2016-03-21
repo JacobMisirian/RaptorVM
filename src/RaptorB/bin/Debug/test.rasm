@@ -20,13 +20,13 @@ Sub_Immediate a, 4
 Store_Word a, b
 Mov a, BP
 Sub_Immediate a, 2
-Load_Word c, a
+Load_Word b, a
 Push b
 Call putint
 Add_Immediate SP, 2
 Mov a, BP
 Sub_Immediate a, 4
-Load_Word c, a
+Load_Word b, a
 Push b
 Call putint
 Add_Immediate SP, 2
@@ -37,21 +37,21 @@ Ret
 Push BP
 Mov BP, SP
 Sub_Immediate SP, 6
-Load_Immediate b, 98
+Load_Immediate b, 97
 Mov a, BP
 Sub_Immediate a, 6
 Store_Word a, b
-Load_Immediate c, 93
+Load_Immediate c, 98
 Mov a, BP
 Sub_Immediate a, 8
 Store_Word a, c
 Mov a, BP
 Sub_Immediate a, 8
-Load_Word e, a
+Load_Word d, a
 Push d
 Mov a, BP
 Sub_Immediate a, 6
-Load_Word e, a
+Load_Word d, a
 Push d
 Call test
 Add_Immediate SP, 4

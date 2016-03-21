@@ -219,10 +219,9 @@ namespace RaptorB.CodeGen
         }
         public void Accept(IdentifierNode node)
         {
-            pushRegister();
             append("Mov a, BP");
             append("Sub_Immediate a, {0}", (2 + symbolTable.GetIndex(node.Identifier) * 2));
-            append("Load_Word {0}, a", getRegister());
+            append("Load_Word {0}, a", pushRegister());
         }
         public void Accept(NumberNode node)
         {
