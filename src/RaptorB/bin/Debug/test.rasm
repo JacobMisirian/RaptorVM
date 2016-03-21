@@ -12,51 +12,45 @@ Sub_Immediate a, 2
 Store_Word a, b
 Mov a, BP
 Sub_Immediate a, 2
-Load_Word c, a
-Push c
+Load_Word b, a
+Push b
 Call putint
 Add_Immediate SP, 2
-Load_Immediate c, 10
-Push c
+Load_Immediate b, 10
+Push b
 Call putchar
 Add_Immediate SP, 2
 Mov a, BP
 Sub_Immediate a, 2
-Load_Word c, a
-Mov d, BP
-Sub_Immediate d, 2
-Store_Word e, d
+Mov b, a
 Mov a, BP
 Sub_Immediate a, 4
-Store_Word a, d
+Store_Word a, b
 Mov a, BP
 Sub_Immediate a, 4
-Load_Word e, a
-Push e
+Load_Word b, a
+Push b
 Call putint
 Add_Immediate SP, 2
-Load_Immediate e, 10
-Push e
+Load_Immediate b, 10
+Push b
 Call putchar
 Add_Immediate SP, 2
 Mov a, BP
 Sub_Immediate a, 4
-Load_Word e, a
-Mov f, BP
-Sub_Immediate f, 4
-Load_Word g, f
-Load_Word f, g
+Load_Word b, a
+Load_Word b, b
 Mov a, BP
 Sub_Immediate a, 2
-Store_Word a, f
+Store_Word a, b
 Mov a, BP
 Sub_Immediate a, 2
-Load_Word g, a
-Push g
+Load_Word b, a
+Push b
 Call putint
 Add_Immediate SP, 2
-Load_Immediate g, 10
-Push g
+Load_Immediate b, 10
+Push b
 Call putchar
 Add_Immediate SP, 2
 Add_Immediate SP, 0

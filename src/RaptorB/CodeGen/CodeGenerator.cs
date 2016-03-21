@@ -54,7 +54,7 @@ namespace RaptorB.CodeGen
                     append("Mov a, BP");
                     append("Sub_Immediate a, {0}", (2 + symbolTable.GetIndex(((IdentifierNode)node.Left).Identifier) * 2));
                     append("Store_Word a, {0}", popRegister());
-                    pushRegister();
+                    //pushRegister();
                     break;
                 case BinaryOperation.Addition:
                     node.Right.Visit(this);
@@ -236,26 +236,19 @@ namespace RaptorB.CodeGen
             {
                 case UnaryOperation.Not:
                     node.Body.VisitChildren(this);
-                    append("Not {0}", getRegister());
+                    append("Not {0}", pushRegister());
                     break;
                 case UnaryOperation.Reference:
-                    node.Body.Visit(this);
-                    source = pushRegister();
                     dest = pushRegister();
-                    append("Mov {0}, BP", source);
-                    append("Sub_Immediate {0}, {1}", source, (2 + symbolTable.GetIndex(((IdentifierNode)node.Body).Identifier) * 2));
-                    append("Store_Word {0}, {1}", dest, source);
-                    popRegister();
+                    append("Mov a, BP");
+                    append("Sub_Immediate a, {0}", (2 + symbolTable.GetIndex(((IdentifierNode)node.Body).Identifier) * 2));
+                    append("Mov {0}, a", dest);
                     break;
                 case UnaryOperation.Dereference:
                     node.Body.Visit(this);
+                    dest = popRegister();
                     source = pushRegister();
-                    dest = pushRegister();
-                    append("Mov {0}, BP", source);
-                    append("Sub_Immediate {0}, {1}", source, (2 + symbolTable.GetIndex(((IdentifierNode)node.Body).Identifier) * 2));
                     append("Load_Word {0}, {1}", dest, source);
-                    append("Load_Word {0}, {1}", source, dest);
-                    popRegister();
                     break;
             }
         }
