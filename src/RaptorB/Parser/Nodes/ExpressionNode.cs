@@ -59,7 +59,7 @@ namespace RaptorB.Parser
 
         private static AstNode parseMultiplicitive(Parser parser)
         {
-            AstNode left = parseComparison(parser);
+            AstNode left = parseUnary(parser);
             while (parser.MatchToken(TokenType.Operation))
             {
                 switch ((string)parser.CurrentToken().Value)

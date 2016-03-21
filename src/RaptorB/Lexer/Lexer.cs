@@ -34,6 +34,7 @@ namespace RaptorB.Lexer
                         case '/':
                         case '%':
                         case '~':
+                        case '&':
                             result.Add(new Token(TokenType.Operation, ((char)readChar()).ToString()));
                             break;
                         case '>':

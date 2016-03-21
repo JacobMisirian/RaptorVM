@@ -231,6 +231,7 @@ namespace RaptorB.CodeGen
         public void Accept(WhileNode node) {}
         public void Accept(UnaryOperationNode node)
         {
+            string source, dest;
             switch (node.UnaryOperation)
             {
                 case UnaryOperation.Not:
@@ -238,9 +239,23 @@ namespace RaptorB.CodeGen
                     append("Not {0}", getRegister());
                     break;
                 case UnaryOperation.Reference:
-                    pushRegister();
-                    append("Mov {0}, BP", getRegister());
-                    append("Sub_Immediate {0}, {1}", getRegister(), (2 + symbolTable.GetIndex(((IdentifierNode)node.Body).Identifier) * 2));
+                    node.Body.Visit(this);
+                    source = pushRegister();
+                    dest = pushRegister();
+                    append("Mov {0}, BP", source);
+                    append("Sub_Immediate {0}, {1}", source, (2 + symbolTable.GetIndex(((IdentifierNode)node.Body).Identifier) * 2));
+                    append("Store_Word {0}, {1}", dest, source);
+                    popRegister();
+                    break;
+                case UnaryOperation.Dereference:
+                    node.Body.Visit(this);
+                    source = pushRegister();
+                    dest = pushRegister();
+                    append("Mov {0}, BP", source);
+                    append("Sub_Immediate {0}, {1}", source, (2 + symbolTable.GetIndex(((IdentifierNode)node.Body).Identifier) * 2));
+                    append("Load_Word {0}, {1}", dest, source);
+                    append("Load_Word {0}, {1}", source, dest);
+                    popRegister();
                     break;
             }
         }
