@@ -198,9 +198,10 @@ namespace RaptorB.CodeGen
         public void Accept(ConditionalNode node)
         {
             node.Predicate.Visit(this);
-            string elseSymbol = "symbol" + nextSymbol++;
-            string endSymbol = "symbol" + nextSymbol++;
-            append("And {0}, {1}", getRegister(), getRegister());
+            string elseSymbol = generateSymbol();
+            string endSymbol = generateSymbol();
+            string register = popRegister();
+            append("And {0}, {1}", register, register);
             append("Jne {0}", elseSymbol);
             node.Body.Visit(this);
             append("Jmp {0}", endSymbol);
@@ -228,7 +229,20 @@ namespace RaptorB.CodeGen
             append("Load_Immediate {0}, {1}", pushRegister(), node.Number);
         }
         public void Accept(StatementNode node) {}
-        public void Accept(WhileNode node) {}
+        public void Accept(WhileNode node)
+        {
+            string whileSymbol = generateSymbol();
+            string endSymbol = generateSymbol();
+            node.Predicate.Visit(this);
+            popRegister();
+            append("Jne {0}", endSymbol);
+            append(".{0}", whileSymbol);
+            node.Body.Visit(this);
+            node.Predicate.Visit(this);
+            popRegister();
+            append("Je {0}", whileSymbol);
+            append(".{0}", endSymbol);
+        }
         public void Accept(UnaryOperationNode node)
         {
             string source, dest;
@@ -272,6 +286,11 @@ namespace RaptorB.CodeGen
         private string getRegister()
         {
             return ((char)currentRegister).ToString();
+        }
+
+        private string generateSymbol()
+        {
+            return "symbol" + nextSymbol++;
         }
 
         private void append(string line, params object[] args)

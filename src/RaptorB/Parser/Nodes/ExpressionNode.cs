@@ -162,7 +162,10 @@ namespace RaptorB.Parser
             {
                 CodeBlockNode block = new CodeBlockNode();
                 while (!parser.AcceptToken(TokenType.Bracket, "}"))
+                {
                     block.Children.Add(StatementNode.Parse(parser));
+                    parser.AcceptToken(TokenType.Semicolon);
+                }
                 return block;
             }
             else if (parser.AcceptToken(TokenType.Parentheses, "("))
@@ -172,7 +175,7 @@ namespace RaptorB.Parser
                 return expression;
             }
             else
-                throw new Exception("Unknown token " + parser.CurrentToken().TokenType);
+                throw new Exception("Unknown token " + parser.CurrentToken().TokenType + ":" + parser.CurrentToken().Value);
         }
     }
 }

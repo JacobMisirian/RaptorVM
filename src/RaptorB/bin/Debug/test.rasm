@@ -5,8 +5,25 @@ Call main
 .main
 Push BP
 Mov BP, SP
-Sub_Immediate SP, 6
-Load_Immediate b, 7
+Sub_Immediate SP, 4
+Load_Immediate b, 0
+Mov a, BP
+Sub_Immediate a, 2
+Store_Word a, b
+Load_Immediate b, 10
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word c, a
+Cmp b, c
+Mov c, FLAGS
+And_Immediate c, 3
+Jne symbol1
+.symbol0
+Load_Immediate b, 1
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word c, a
+Add b, c
 Mov a, BP
 Sub_Immediate a, 2
 Store_Word a, b
@@ -20,14 +37,38 @@ Load_Immediate b, 10
 Push b
 Call putchar
 Add_Immediate SP, 2
+Load_Immediate b, 10
 Mov a, BP
 Sub_Immediate a, 2
-Mov b, a
+Load_Word c, a
+Cmp b, c
+Mov c, FLAGS
+And_Immediate c, 3
+Je symbol0
+.symbol1
+Load_Immediate b, 0
 Mov a, BP
-Sub_Immediate a, 4
+Sub_Immediate a, 2
+Store_Word a, b
+Load_Immediate b, 10
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word c, a
+Cmp b, c
+Mov c, FLAGS
+And_Immediate c, 3
+Jne symbol3
+.symbol2
+Load_Immediate b, 1
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word c, a
+Add b, c
+Mov a, BP
+Sub_Immediate a, 2
 Store_Word a, b
 Mov a, BP
-Sub_Immediate a, 4
+Sub_Immediate a, 2
 Load_Word b, a
 Push b
 Call putint
@@ -36,10 +77,33 @@ Load_Immediate b, 10
 Push b
 Call putchar
 Add_Immediate SP, 2
+Load_Immediate b, 10
 Mov a, BP
-Sub_Immediate a, 4
-Load_Word b, a
-Load_Word b, b
+Sub_Immediate a, 2
+Load_Word c, a
+Cmp b, c
+Mov c, FLAGS
+And_Immediate c, 3
+Je symbol2
+.symbol3
+Load_Immediate b, 0
+Mov a, BP
+Sub_Immediate a, 2
+Store_Word a, b
+Load_Immediate b, 10
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word c, a
+Cmp b, c
+Mov c, FLAGS
+And_Immediate c, 3
+Jne symbol5
+.symbol4
+Load_Immediate b, 1
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word c, a
+Add b, c
 Mov a, BP
 Sub_Immediate a, 2
 Store_Word a, b
@@ -53,6 +117,99 @@ Load_Immediate b, 10
 Push b
 Call putchar
 Add_Immediate SP, 2
+Load_Immediate b, 10
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word c, a
+Cmp b, c
+Mov c, FLAGS
+And_Immediate c, 3
+Je symbol4
+.symbol5
+Load_Immediate b, 0
+Mov a, BP
+Sub_Immediate a, 2
+Store_Word a, b
+Load_Immediate b, 10
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word c, a
+Cmp b, c
+Mov c, FLAGS
+And_Immediate c, 3
+Jne symbol7
+.symbol6
+Load_Immediate b, 1
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word c, a
+Add b, c
+Mov a, BP
+Sub_Immediate a, 2
+Store_Word a, b
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word b, a
+Push b
+Call putint
+Add_Immediate SP, 2
+Load_Immediate b, 10
+Push b
+Call putchar
+Add_Immediate SP, 2
+Load_Immediate b, 10
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word c, a
+Cmp b, c
+Mov c, FLAGS
+And_Immediate c, 3
+Je symbol6
+.symbol7
+Load_Immediate b, 0
+Mov a, BP
+Sub_Immediate a, 2
+Store_Word a, b
+Load_Immediate b, 10
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word c, a
+Cmp b, c
+Mov c, FLAGS
+And_Immediate c, 3
+Jne symbol9
+.symbol8
+Load_Immediate b, 1
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word c, a
+Add b, c
+Mov a, BP
+Sub_Immediate a, 2
+Store_Word a, b
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word b, a
+Push b
+Call putint
+Add_Immediate SP, 2
+Load_Immediate b, 10
+Push b
+Call putchar
+Add_Immediate SP, 2
+Load_Immediate b, 10
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word c, a
+Cmp b, c
+Mov c, FLAGS
+And_Immediate c, 3
+Je symbol8
+.symbol9
+Load_Immediate b, 0
+Mov a, BP
+Sub_Immediate a, 2
+Store_Word a, b
 Add_Immediate SP, 0
 Pop BP
 Ret
