@@ -25,6 +25,16 @@ namespace RaptorB.Lexer
                 {
                     switch ((char)peekChar())
                     {
+                        case '/':
+                            position++;
+                            if ((char)peekChar() == '/')
+                            {
+                                position++;
+                                scanSingleComment();
+                            }
+                            else
+                                result.Add(new Token(TokenType.Operation, "/"));
+                            break;
                         case '\'':
                             result.Add(scanChar());
                             break;
@@ -34,7 +44,6 @@ namespace RaptorB.Lexer
                         case '+':
                         case '-':
                         case '*':
-                        case '/':
                         case '%':
                         case '~':
                         case '&':
@@ -84,6 +93,12 @@ namespace RaptorB.Lexer
         private void whiteSpace()
         {
             while (char.IsWhiteSpace((char)peekChar()))
+                position++;
+        }
+
+        private void scanSingleComment()
+        {
+            while ((char)peekChar() != '\n' && peekChar() != -1)
                 position++;
         }
 
