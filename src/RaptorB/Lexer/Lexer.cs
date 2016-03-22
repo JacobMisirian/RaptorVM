@@ -32,6 +32,11 @@ namespace RaptorB.Lexer
                                 position++;
                                 scanSingleComment();
                             }
+                            else if ((char)peekChar() == '*')
+                            {
+                                position++;
+                                scanMultiComment();
+                            }
                             else
                                 result.Add(new Token(TokenType.Operation, "/"));
                             break;
@@ -100,6 +105,13 @@ namespace RaptorB.Lexer
         {
             while ((char)peekChar() != '\n' && peekChar() != -1)
                 position++;
+        }
+
+        private void scanMultiComment()
+        {
+            while (((char)peekChar() != '*') && (char)peekChar(1) != '/')
+                position++;
+            position += 2;
         }
 
         private Token scanChar()
