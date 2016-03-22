@@ -28,6 +28,9 @@ namespace RaptorB.Lexer
                         case '\'':
                             result.Add(scanChar());
                             break;
+                        case '\"':
+                            result.Add(scanString());
+                            break;
                         case '+':
                         case '-':
                         case '*':
@@ -92,6 +95,18 @@ namespace RaptorB.Lexer
             // '
             position++;
             return new Token(TokenType.Char, result);
+        }
+
+        private Token scanString()
+        {
+            // "
+            position++;
+            string str = "";
+            while (peekChar() != -1 && ((char)peekChar()) != '\"')
+                str += ((char)readChar()).ToString();
+            // "
+            position++;
+            return new Token(TokenType.String, str);
         }
 
         private Token scanData()

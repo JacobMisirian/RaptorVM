@@ -158,6 +158,8 @@ namespace RaptorB.Parser
                 return new NumberNode((Int16)parser.ExpectToken(TokenType.Number).Value);
             else if (parser.MatchToken(TokenType.Char))
                 return new CharNode((char)parser.ExpectToken(TokenType.Char).Value);
+            else if (parser.MatchToken(TokenType.String))
+                return new StringNode((string)parser.ExpectToken(TokenType.String).Value);
             else if (parser.AcceptToken(TokenType.Bracket, "{"))
             {
                 CodeBlockNode block = new CodeBlockNode();
@@ -175,7 +177,7 @@ namespace RaptorB.Parser
                 return expression;
             }
             else
-                throw new Exception("Unknown token " + parser.CurrentToken().TokenType + ":" + parser.CurrentToken().Value);
+                throw new Exception("Unknown token " + parser.CurrentToken().TokenType + ":" + Convert.ToString(parser.CurrentToken().Value));
         }
     }
 }

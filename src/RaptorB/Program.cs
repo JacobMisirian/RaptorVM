@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 using RaptorB.Lexer;
 
@@ -8,16 +9,23 @@ namespace RaptorB
     {
         public static void Main(string[] args)
         {
-            while (true)
+            if (args.Length <= 0)
             {
-                string source = Console.ReadLine();
-                var tokens = new Lexer.Lexer(source).Scan();
-                /*foreach (Token token in tokens)
-                    Console.WriteLine(token.ToString());*/
-                var ast = new Parser.Parser(tokens).Parse();
-                var symbolTable = new SemanticAnalysis.SemanticAnalyzer(ast).Analyze();
-                Console.WriteLine(new CodeGen.CodeGenerator(ast, symbolTable).Generate());
+                while (true)
+                    runFromString(Console.ReadLine());
             }
+            else
+                runFromString(File.ReadAllText(args[0]));
+        }
+
+        private static void runFromString(string source)
+        {
+            var tokens = new Lexer.Lexer(source).Scan();
+            /*foreach (Token token in tokens)
+                    Console.WriteLine(token.ToString());*/
+            var ast = new Parser.Parser(tokens).Parse();
+            var symbolTable = new SemanticAnalysis.SemanticAnalyzer(ast).Analyze();
+            Console.WriteLine(new CodeGen.CodeGenerator(ast, symbolTable).Generate());
         }
     }
 }

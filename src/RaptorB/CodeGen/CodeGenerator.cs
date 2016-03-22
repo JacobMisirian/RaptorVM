@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 using RaptorB.Parser;
@@ -11,6 +12,7 @@ namespace RaptorB.CodeGen
         private AstNode ast;
         private SymbolTable symbolTable;
         private StringBuilder result;
+        private Dictionary<string, string> strings;
 
         public CodeGenerator(AstNode ast, SymbolTable symbolTable)
         {
@@ -21,6 +23,7 @@ namespace RaptorB.CodeGen
         public string Generate()
         {
             result = new StringBuilder();
+            strings = new Dictionary<string, string>();
             append("Load_Immediate SP, 6000");
             append("Mov BP, SP");
             append("Call main");
@@ -28,6 +31,8 @@ namespace RaptorB.CodeGen
             ast.VisitChildren(this);
             append(putchar);
             append(putint);
+            append(putstr);
+            writeStrings();
             return result.ToString();
         }
 
@@ -229,6 +234,12 @@ namespace RaptorB.CodeGen
             append("Load_Immediate {0}, {1}", pushRegister(), node.Number);
         }
         public void Accept(StatementNode node) {}
+        public void Accept(StringNode node)
+        {
+            string symbol = generateStringSymbol();
+            append("Load_Immediate {0}, {1}", pushRegister(), symbol);
+            strings.Add(symbol, node.String);
+        }
         public void Accept(WhileNode node)
         {
             string whileSymbol = generateSymbol();
@@ -267,11 +278,11 @@ namespace RaptorB.CodeGen
             }
         }
 
-        private const string putchar = ".putchar Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Byte b, a Print_Char b Pop BP Ret";
-        private const string putint = ".putint Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Byte b, a Print b Pop BP Ret";
+        private const string putchar = ".putchar Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Print_Char b Pop BP Ret";
+        private const string putint = ".putint Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Print b Pop BP Ret";
+        private const string putstr = ".putstr Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Call writeStr Pop BP Ret .writeStr Load_Byte a, b Print_Char a Cmp_Immediate a, 0 Inc b Jne writeStr Ret";
 
         private int currentRegister = (int)'b';
-        private int nextSymbol = 0;
 
         private string pushRegister()
         {
@@ -288,9 +299,24 @@ namespace RaptorB.CodeGen
             return ((char)currentRegister).ToString();
         }
 
+        private int nextSymbol = 0;
         private string generateSymbol()
         {
             return "symbol" + nextSymbol++;
+        }
+        private int nextStringSymbol = 0;
+        private string generateStringSymbol()
+        {
+            return "symbolString" + nextStringSymbol;
+        }
+
+        private void writeStrings()
+        {
+            foreach (KeyValuePair<string, string> entry in strings)
+            {
+                append(".{0}", entry.Key);
+                append("STRING \"{0}\"", entry.Value);
+            }
         }
 
         private void append(string line, params object[] args)

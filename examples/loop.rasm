@@ -1,0 +1,7 @@
+Load_Immediate a, 0			; a = 0.
+.loop					; Label loop.
+Print a					; Print the counter.
+Print_Char_Immediate 10			; Newline.
+Inc a					; Increment the counter.
+Cmp_Immediate a, 10			; Compare counter to 10.
+Jne loop				; If counter = 10, goto loop.

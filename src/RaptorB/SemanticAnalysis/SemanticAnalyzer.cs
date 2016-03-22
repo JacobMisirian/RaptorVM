@@ -61,6 +61,7 @@ namespace RaptorB.SemanticAnalysis
         public void Accept(FunctionCallNode node) {}
         public void Accept(ExpressionNode node) {}
         public void Accept(StatementNode node) {}
+        public void Accept(StringNode node) {}
         public void Accept(WhileNode node) {}
     }
 }

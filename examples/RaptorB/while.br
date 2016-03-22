@@ -1,0 +1,9 @@
+main () {
+	auto a;
+	a = 0;
+	while (a < 10) {
+		putint(a);
+		putchar(10);
+		a = a + 1
+	}
+}

@@ -1,0 +1,39 @@
+Load_Immediate a, 5
+Load_Immediate b, 2
+Call compare
+.hang Jmp hang
+
+.compare
+	Cmp a, b
+	Je equal
+	Jl lesser
+	Jg greater
+	.equal
+		Load_Immediate c, strEqual
+		Jmp endCompare
+	.lesser
+		Load_Immediate c, strLesser
+		Jmp endCompare
+	.greater
+		Load_Immediate c, strGreater
+		Jmp endCompare
+	.endCompare
+	Call writeString
+ret
+
+.writeString
+	Load_Byte d, c
+	Print_Char d
+	Cmp_Immediate d, 0
+	Je endWriteString
+	Inc c
+	Jmp writeString
+	.endWriteString
+Ret
+
+.strGreater
+STRING "It was greater!"
+.strLesser
+STRING "It was lesser!"
+.strEqual
+STRING "It was equal!"

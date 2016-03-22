@@ -19,6 +19,7 @@ namespace RaptorB.Parser
         void Accept(IdentifierNode node);
         void Accept(NumberNode node);
         void Accept(StatementNode node);
+        void Accept(StringNode node);
         void Accept(WhileNode node);
         void Accept(UnaryOperationNode node);
     }

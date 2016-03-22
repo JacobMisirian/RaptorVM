@@ -25,6 +25,7 @@ namespace RaptorB.Lexer
         Identifier,
         Number,
         Char,
+        String,
         Dot,
         Comma,
         Parentheses,
