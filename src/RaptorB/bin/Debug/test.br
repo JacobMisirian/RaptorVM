@@ -1,0 +1,13 @@
+main () {
+	if (0) {
+		putchar('y');
+	} else {
+		putchar('n');
+	}
+
+	if (1) { 
+		putchar('a');
+	} else {
+		putchar('b');
+	}
+}

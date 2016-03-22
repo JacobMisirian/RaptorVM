@@ -57,7 +57,7 @@ namespace RaptorB.CodeGen
                 case BinaryOperation.Assignment:
                     node.Right.Visit(this);
                     append("Mov a, BP");
-                    append("Sub_Immediate a, {0}", (2 + symbolTable.GetIndex(((IdentifierNode)node.Left).Identifier) * 2));
+                    append("Sub_Immediate a, {0}", positionInRam(((IdentifierNode)node.Left).Identifier));
                     append("Store_Word a, {0}", popRegister());
                     //pushRegister();
                     break;
@@ -186,11 +186,11 @@ namespace RaptorB.CodeGen
             {
                 symbolTable.AddSymbol(param);
                 append("Mov a, BP");
-                append("Add_Immediate a, {0}", (2 + symbolTable.GetIndex(param)) * 2);
+                append("Add_Immediate a, {0}", positionInRam(param));
                 append("Load_Word " + pushRegister() + ", a");
 
                 append("Mov a, BP");
-                append("Sub_Immediate a, {0}", (2 + symbolTable.GetIndex(param) * 2));
+                append("Sub_Immediate a, {0}", positionInRam(param));
                 append("Store_Word a, {0}", popRegister());
             }
 
@@ -205,14 +205,16 @@ namespace RaptorB.CodeGen
             node.Predicate.Visit(this);
             string elseSymbol = generateSymbol();
             string endSymbol = generateSymbol();
-            string register = popRegister();
+            string register = getRegister();
             append("And {0}, {1}", register, register);
             append("Jne {0}", elseSymbol);
             node.Body.Visit(this);
             append("Jmp {0}", endSymbol);
             append(".{0}", elseSymbol);
-            node.ElseBody.Visit(this);
+            if (node.Children.Count > 2)
+                node.ElseBody.Visit(this);
             append(".{0}", endSymbol);
+            popRegister();
 
         }
         public void Accept(ExpressionNode node) {}
@@ -226,7 +228,7 @@ namespace RaptorB.CodeGen
         public void Accept(IdentifierNode node)
         {
             append("Mov a, BP");
-            append("Sub_Immediate a, {0}", (2 + symbolTable.GetIndex(node.Identifier) * 2));
+            append("Sub_Immediate a, {0}", positionInRam(node.Identifier));
             append("Load_Word {0}, a", pushRegister());
         }
         public void Accept(NumberNode node)
@@ -266,7 +268,7 @@ namespace RaptorB.CodeGen
                 case UnaryOperation.Reference:
                     dest = pushRegister();
                     append("Mov a, BP");
-                    append("Sub_Immediate a, {0}", (2 + symbolTable.GetIndex(((IdentifierNode)node.Body).Identifier) * 2));
+                    append("Sub_Immediate a, {0}", positionInRam(((IdentifierNode)node.Body).Identifier));
                     append("Mov {0}, a", dest);
                     break;
                 case UnaryOperation.Dereference:
@@ -283,6 +285,11 @@ namespace RaptorB.CodeGen
         private const string putstr = ".putstr Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Call writeStr Pop BP Ret .writeStr Load_Byte a, b Print_Char a Cmp_Immediate a, 0 Inc b Jne writeStr Ret";
 
         private int currentRegister = (int)'b';
+
+        private int positionInRam(string identifier)
+        {
+            return (2 * symbolTable.GetIndex(identifier) + 2);
+        }
 
         private string pushRegister()
         {

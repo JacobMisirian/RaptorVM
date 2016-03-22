@@ -1,0 +1,43 @@
+Load_Immediate SP, 6000
+Mov BP, SP
+Call main
+.hang Jmp hang
+.main
+Push BP
+Mov BP, SP
+Sub_Immediate SP, 2
+Load_Immediate b, 0
+And c, c
+Jne symbol0
+Load_Immediate c, 121
+Push c
+Call putchar
+Add_Immediate SP, 2
+Jmp symbol1
+.symbol0
+Load_Immediate c, 110
+Push c
+Call putchar
+Add_Immediate SP, 2
+.symbol1
+Load_Immediate b, 1
+And c, c
+Jne symbol2
+Load_Immediate c, 97
+Push c
+Call putchar
+Add_Immediate SP, 2
+Jmp symbol3
+.symbol2
+Load_Immediate c, 98
+Push c
+Call putchar
+Add_Immediate SP, 2
+.symbol3
+Add_Immediate SP, 0
+Pop BP
+Ret
+.putchar Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Print_Char b Pop BP Ret
+.putint Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Print b Pop BP Ret
+.putstr Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Call writeStr Pop BP Ret .writeStr Load_Byte a, b Print_Char a Cmp_Immediate a, 0 Inc b Jne writeStr Ret
+
