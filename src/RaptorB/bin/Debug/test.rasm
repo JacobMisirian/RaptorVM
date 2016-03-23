@@ -7,38 +7,42 @@ Push BP
 Mov BP, SP
 Sub_Immediate SP, 2
 Load_Immediate b, symbolString0
-Push b
-Call putstrln
-Add_Immediate SP, 2
-Add_Immediate SP, 2
-Pop BP
-Ret
-.putstrln
-Push BP
-Mov BP, SP
-Sub_Immediate SP, 4
 Mov a, BP
-Add_Immediate a, 4
-Load_Word b, a
-Mov a, BP
-Sub_Immediate a, 2
+Sub_Immediate a, 0
 Store_Word a, b
+Load_Immediate b, 3
+Push b
 Mov a, BP
-Sub_Immediate a, 2
+Sub_Immediate a, 0
 Load_Word b, a
 Push b
-Call putstr
-Add_Immediate SP, 2
-Load_Immediate b, 10
-Push b
+Call charat
+Add_Immediate SP, 4
+Mov b, a
+Mov a, BP
+Sub_Immediate a, 0
+Store_Word a, a
+Mov a, BP
+Sub_Immediate a, 0
+Load_Word a, a
+Push a
 Call putchar
 Add_Immediate SP, 2
-Add_Immediate SP, 4
+Mov a, a
+Mov a, BP
+Sub_Immediate a, 0
+Load_Word a, a
+Push a
+Call putchar
+Add_Immediate SP, 2
+Mov a, a
+Add_Immediate SP, 2
 Pop BP
 Ret
 .putchar Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Print_Char b Pop BP Ret
 .putint Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Print b Pop BP Ret
 .putstr Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Call writeStr Pop BP Ret .writeStr Load_Byte a, b Print_Char a Cmp_Immediate a, 0 Inc b Jne writeStr Ret
+.charat Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Mov a, BP Add_Immediate a, 6 Load_Word a, a Add a, b Load_Word a, a Pop BP Ret
 .symbolString0
 STRING "Hello, World!"
 

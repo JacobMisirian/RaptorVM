@@ -32,6 +32,7 @@ namespace RaptorB.CodeGen
             append(putchar);
             append(putint);
             append(putstr);
+            append(charat);
             writeStrings();
             return result.ToString();
         }
@@ -224,6 +225,7 @@ namespace RaptorB.CodeGen
             string call = ((IdentifierNode)node.Target).Identifier;
             append("Call {0}", call);
             append("Add_Immediate SP, {0}", node.Arguments.Children.Count * 2);
+            append("Mov {0}, a", getRegister());
         }
         public void Accept(IdentifierNode node)
         {
@@ -285,6 +287,7 @@ namespace RaptorB.CodeGen
         private const string putchar = ".putchar Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Print_Char b Pop BP Ret";
         private const string putint = ".putint Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Print b Pop BP Ret";
         private const string putstr = ".putstr Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Call writeStr Pop BP Ret .writeStr Load_Byte a, b Print_Char a Cmp_Immediate a, 0 Inc b Jne writeStr Ret";
+        private const string charat = ".charat Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Mov a, BP Add_Immediate a, 6 Load_Word a, a Add a, b Load_Word a, a Pop BP Ret";
 
         private int currentRegister = (int)'b';
 

@@ -1,8 +1,6 @@
 main () {
-	putstrln("Hello, World!");
-}
-
-putstrln (string) {
-	putstr(string);
-	putchar(10);
+	s = "Hello, World!";
+	a = charat(s, 3);
+	putchar(a);
+	putchar(a);
 }
