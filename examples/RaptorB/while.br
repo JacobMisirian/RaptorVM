@@ -1,9 +1,15 @@
 main () {
+	// Init a.
 	auto a;
+	// Set a to initial 0.
 	a = 0;
+	// Loop until a = 10.
 	while (a < 10) {
+		// Print a.
 		putint(a);
+		// NewLine.
 		putchar(10);
+		// Increment a.
 		a = a + 1
 	}
 }

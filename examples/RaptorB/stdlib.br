@@ -1,0 +1,18 @@
+putstrln (str) {
+	putstr(str);
+	putchar(10);
+}
+
+putintln (int) {
+	putint(int);
+	putchar(10);
+}
+
+putcharln (char) {
+	putchar(char);
+	putchar(10);
+}
+
+newline () {
+	putchar(10);
+}

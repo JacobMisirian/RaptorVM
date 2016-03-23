@@ -1,13 +1,8 @@
 main () {
-	if (0) {
-		putchar('y');
-	} else {
-		putchar('n');
-	}
+	putstrln("Hello, World!");
+}
 
-	if (1) { 
-		putchar('a');
-	} else {
-		putchar('b');
-	}
+putstrln (string) {
+	putstr(string);
+	putchar(10);
 }

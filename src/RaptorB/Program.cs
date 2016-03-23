@@ -20,6 +20,11 @@ namespace RaptorB
 
         private static void runFromString(string source)
         {
+            new Preprocessors().ScanPreprocessors(source);
+            source = Preprocessors.ScannedSource.ToString();
+        /*    Console.WriteLine("<scanned>");
+            Console.WriteLine(source);
+            Console.WriteLine("</scanned>"); */
             var tokens = new Lexer.Lexer(source).Scan();
             /*foreach (Token token in tokens)
                     Console.WriteLine(token.ToString());*/

@@ -40,6 +40,10 @@ namespace RaptorB.Lexer
                             else
                                 result.Add(new Token(TokenType.Operation, "/"));
                             break;
+                        case '#':
+                            position++;
+                            scanSingleComment();
+                            break;
                         case '\'':
                             result.Add(scanChar());
                             break;

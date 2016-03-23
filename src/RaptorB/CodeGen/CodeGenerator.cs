@@ -57,7 +57,7 @@ namespace RaptorB.CodeGen
                 case BinaryOperation.Assignment:
                     node.Right.Visit(this);
                     append("Mov a, BP");
-                    append("Sub_Immediate a, {0}", positionInRam(((IdentifierNode)node.Left).Identifier));
+                    append("Sub_Immediate a, {0}",  (2 + symbolTable.GetIndex(((IdentifierNode)node.Left).Identifier) * 2));
                     append("Store_Word a, {0}", popRegister());
                     //pushRegister();
                     break;
@@ -186,17 +186,17 @@ namespace RaptorB.CodeGen
             {
                 symbolTable.AddSymbol(param);
                 append("Mov a, BP");
-                append("Add_Immediate a, {0}", positionInRam(param));
+                append("Add_Immediate a, {0}", (2 + symbolTable.GetIndex(param)) * 2);
                 append("Load_Word " + pushRegister() + ", a");
 
                 append("Mov a, BP");
-                append("Sub_Immediate a, {0}", positionInRam(param));
+                append("Sub_Immediate a, {0}",  (2 + symbolTable.GetIndex(param) * 2));
                 append("Store_Word a, {0}", popRegister());
             }
 
             node.VisitChildren(this);
             symbolTable.PopScope();
-            append("Add_Immediate SP, {0}", symbolTable.GetIndex(node.Name) * 2);
+            append("Add_Immediate SP, {0}", symbolTable.GetGlobalIndex(node.Name) * 2);
             append("Pop BP");
             append("Ret");
         }
@@ -228,7 +228,7 @@ namespace RaptorB.CodeGen
         public void Accept(IdentifierNode node)
         {
             append("Mov a, BP");
-            append("Sub_Immediate a, {0}", positionInRam(node.Identifier));
+            append("Sub_Immediate a, {0}", (2 + symbolTable.GetIndex(node.Identifier) * 2));
             append("Load_Word {0}, a", pushRegister());
         }
         public void Accept(NumberNode node)
@@ -247,6 +247,8 @@ namespace RaptorB.CodeGen
             string whileSymbol = generateSymbol();
             string endSymbol = generateSymbol();
             node.Predicate.Visit(this);
+            string register = getRegister();
+            append("And {0}, {1}", register, register);
             popRegister();
             append("Jne {0}", endSymbol);
             append(".{0}", whileSymbol);
@@ -268,7 +270,7 @@ namespace RaptorB.CodeGen
                 case UnaryOperation.Reference:
                     dest = pushRegister();
                     append("Mov a, BP");
-                    append("Sub_Immediate a, {0}", positionInRam(((IdentifierNode)node.Body).Identifier));
+                    append("Sub_Immediate a, {0}", (2 + symbolTable.GetIndex(((IdentifierNode)node.Body).Identifier) * 2));
                     append("Mov {0}, a", dest);
                     break;
                 case UnaryOperation.Dereference:
@@ -314,7 +316,7 @@ namespace RaptorB.CodeGen
         private int nextStringSymbol = 0;
         private string generateStringSymbol()
         {
-            return "symbolString" + nextStringSymbol;
+            return "symbolString" + nextStringSymbol++;
         }
 
         private void writeStrings()

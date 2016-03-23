@@ -1,3 +1,9 @@
 main () {
+	// putstr prints a string onto the screen.
 	putstr("Hello, World!");
+
+	// Strings can be assigned to a variable, however this is really the string's location in RAM.
+	a = "This is a string";
+	// The location in ram.
+	putint(a);
 }

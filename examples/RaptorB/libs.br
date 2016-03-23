@@ -1,0 +1,9 @@
+#include stdlib.br
+
+main () {
+	putstrln("Hello, World!");
+	putintln(5);
+	putcharln(98);
+	newline();
+	newline();
+}
