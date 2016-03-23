@@ -131,6 +131,10 @@ namespace RaptorB.Parser
                         parser.AcceptToken(TokenType.Comparison);
                         left = new BinaryOperationNode(BinaryOperation.LessThanOrEqual, left, parseFunctionCall(parser));
                         continue;
+                    case "!=":
+                        parser.AcceptToken(TokenType.Comparison);
+                        left = new BinaryOperationNode(BinaryOperation.NotEqualTo, left, parseFunctionCall(parser));
+                        continue;
                     default:
                         break;
                 }

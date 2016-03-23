@@ -1,18 +1,28 @@
+main () {
+	putintln(7);
+	putstrln("Hai");
+	putcharln('r');
+	putintln(8);
+	putintln(charat("hack", 2));
+}
+
+strlen (str) {
+	auto a;
+	a = 3;
+	putintln(charat(str, a));
+}
+
 putstrln (str) {
 	putstr(str);
 	putchar(10);
 }
 
+putcharln (ch) {
+	putchar(ch);
+	putchar(10);
+}
+
 putintln (int) {
 	putint(int);
-	putchar(10);
-}
-
-putcharln (char) {
-	putchar(char);
-	putchar(10);
-}
-
-newline () {
 	putchar(10);
 }

@@ -75,6 +75,16 @@ namespace RaptorB.Lexer
                             else
                                 result.Add(new Token(TokenType.Assignment, "="));
                             break;
+                        case '!':
+                            position++;
+                            if ((char)peekChar() == '=')
+                            {
+                                position++;
+                                result.Add(new Token(TokenType.Comparison, "!="));
+                            }
+                            else
+                                result.Add(new Token(TokenType.Operation, "!"));
+                            break;
                         case ',':
                             result.Add(new Token(TokenType.Comma, ((char)readChar()).ToString()));
                             break;

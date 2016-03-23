@@ -58,7 +58,7 @@ namespace RaptorB.CodeGen
                 case BinaryOperation.Assignment:
                     node.Right.Visit(this);
                     append("Mov a, BP");
-                    append("Sub_Immediate a, {0}",  (2 + symbolTable.GetIndex(((IdentifierNode)node.Left).Identifier) * 2));
+                    append("Sub_Immediate a, {0}",  (1 + symbolTable.GetIndex(((IdentifierNode)node.Left).Identifier)) * 2);
                     append("Store_Word a, {0}", popRegister());
                     //pushRegister();
                     break;
@@ -116,7 +116,9 @@ namespace RaptorB.CodeGen
                     registerOne = popRegister();
                     registerTwo = popRegister();
                     append("Cmp {0}, {1}", registerTwo, registerOne);
-                    append("Not FLAGS");
+                    append("Mov {0}, FLAGS", registerOne);
+                    append("Not {0}", registerOne);
+                    append("And_Immediate {0}, 1", registerOne);
                     pushRegister();
                     break;
                 case BinaryOperation.GreaterThan:
@@ -178,26 +180,27 @@ namespace RaptorB.CodeGen
         public void Accept(FunctionDeclarationNode node)
         {
             symbolTable.EnterScope();
-            append("." + node.Name);
+            append(".{0}", node.Name);
             append("Push BP");
             append("Mov BP, SP");
-            append("Sub_Immediate SP, {0}", symbolTable.GetGlobalIndex(node.Name) * 2);
+            append("Sub_Immediate SP, {0}", 2 * symbolTable.GetGlobalIndex(node.Name));
 
             foreach (string param in node.Parameters)
             {
                 symbolTable.AddSymbol(param);
                 append("Mov a, BP");
                 append("Add_Immediate a, {0}", (2 + symbolTable.GetIndex(param)) * 2);
-                append("Load_Word " + pushRegister() + ", a");
+                append("Load_Word {0}, a", pushRegister());
 
                 append("Mov a, BP");
-                append("Sub_Immediate a, {0}",  (2 + symbolTable.GetIndex(param) * 2));
+                append("Sub_Immediate a, {0}", (1 + symbolTable.GetIndex(param)) * 2);
                 append("Store_Word a, {0}", popRegister());
             }
 
             node.VisitChildren(this);
             symbolTable.PopScope();
-            append("Add_Immediate SP, {0}", symbolTable.GetGlobalIndex(node.Name) * 2);
+
+            append("Add_Immediate SP, {0}", 2 * symbolTable.GetGlobalIndex(node.Name));
             append("Pop BP");
             append("Ret");
         }
@@ -225,12 +228,12 @@ namespace RaptorB.CodeGen
             string call = ((IdentifierNode)node.Target).Identifier;
             append("Call {0}", call);
             append("Add_Immediate SP, {0}", node.Arguments.Children.Count * 2);
-            append("Mov {0}, a", getRegister());
+            append("Mov {0}, a", pushRegister());
         }
         public void Accept(IdentifierNode node)
         {
             append("Mov a, BP");
-            append("Sub_Immediate a, {0}", (2 + symbolTable.GetIndex(node.Identifier) * 2));
+            append("Sub_Immediate a, {0}", (1 + symbolTable.GetIndex(node.Identifier)) * 2);
             append("Load_Word {0}, a", pushRegister());
         }
         public void Accept(NumberNode node)

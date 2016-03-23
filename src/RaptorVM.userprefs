@@ -2,13 +2,23 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="RaptorB/CodeGen/CodeGenerator.cs">
     <Files>
-      <File FileName="RaptorB/CodeGen/CodeGenerator.cs" Line="209" Column="56" />
-      <File FileName="RaptorB/Program.cs" Line="1" Column="1" />
+      <File FileName="RaptorB/CodeGen/CodeGenerator.cs" Line="230" Column="37" />
+      <File FileName="RaptorB/Program.cs" Line="29" Column="15" />
       <File FileName="RaptorB/Lexer/Preprocessors.cs" Line="1" Column="1" />
+      <File FileName="RaptorB/Lexer/Lexer.cs" Line="83" Column="74" />
+      <File FileName="RaptorVM/raptor_vm.c" Line="111" Column="24" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True" />
+        <State expanded="True">
+          <Node name="RaptorB" expanded="True">
+            <Node name="CodeGen" expanded="True">
+              <Node name="CodeGenerator.cs" selected="True" />
+            </Node>
+            <Node name="Lexer" expanded="True" />
+          </Node>
+          <Node name="RaptorVM" expanded="True" />
+        </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

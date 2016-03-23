@@ -53,7 +53,7 @@ namespace RaptorB.SemanticAnalysis
         public void PopScope()
         {
             Scopes.Pop();
-            if (Scopes.Count == 1)
+            if (Scopes.Count <= 2)
                 currentIndex = 0;
         }
         public void PopScope(string name)
