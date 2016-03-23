@@ -222,8 +222,14 @@ namespace RaptorB.CodeGen
 
         }
         public void Accept(ExpressionNode node) {}
+        public void Accept(ExpressionStatementNode node)
+        {
+            node.Body.Visit(this);
+            popRegister();
+        }
         public void Accept(FunctionCallNode node)
         {
+           // popRegister();
             node.Arguments.Visit(this);
             string call = ((IdentifierNode)node.Target).Identifier;
             append("Call {0}", call);

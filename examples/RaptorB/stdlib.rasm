@@ -26,17 +26,22 @@ Push b
 Call putintln
 Add_Immediate SP, 2
 Mov b, a
-Load_Immediate b, 2
+Load_Immediate b, 5
 Push b
 Load_Immediate b, symbolString1
 Push b
 Call charat
 Add_Immediate SP, 4
 Mov b, a
-Push a
-Call putintln
+Push b
+Call putchar
 Add_Immediate SP, 2
-Mov a, a
+Mov b, a
+Load_Immediate b, symbolString2
+Push b
+Call strlen
+Add_Immediate SP, 2
+Mov b, a
 Add_Immediate SP, 2
 Pop BP
 Ret
@@ -46,29 +51,66 @@ Mov BP, SP
 Sub_Immediate SP, 6
 Mov a, BP
 Add_Immediate a, 4
-Load_Word a, a
+Load_Word b, a
 Mov a, BP
 Sub_Immediate a, 2
-Store_Word a, a
-Load_Immediate a, 3
+Store_Word a, b
+Load_Immediate b, 0
 Mov a, BP
 Sub_Immediate a, 4
-Store_Word a, a
+Store_Word a, b
+Load_Immediate b, 0
 Mov a, BP
 Sub_Immediate a, 4
-Load_Word a, a
-Push a
+Load_Word c, a
+Push c
 Mov a, BP
 Sub_Immediate a, 2
-Load_Word a, a
-Push a
+Load_Word c, a
+Push c
 Call charat
 Add_Immediate SP, 4
-Mov a, a
-Push `
+Mov c, a
+Cmp b, c
+Mov c, FLAGS
+Not c
+And_Immediate c, 1
+And c, c
+Jne symbol1
+.symbol0
+Load_Immediate b, 1
+Mov a, BP
+Sub_Immediate a, 4
+Load_Word c, a
+Add b, c
+Mov a, BP
+Sub_Immediate a, 4
+Store_Word a, b
+Load_Immediate b, 0
+Mov a, BP
+Sub_Immediate a, 4
+Load_Word c, a
+Push c
+Mov a, BP
+Sub_Immediate a, 2
+Load_Word c, a
+Push c
+Call charat
+Add_Immediate SP, 4
+Mov c, a
+Cmp b, c
+Mov c, FLAGS
+Not c
+And_Immediate c, 1
+Je symbol0
+.symbol1
+Mov a, BP
+Sub_Immediate a, 4
+Load_Word b, a
+Push b
 Call putintln
 Add_Immediate SP, 2
-Mov `, a
+Mov b, a
 Add_Immediate SP, 6
 Pop BP
 Ret
@@ -78,22 +120,22 @@ Mov BP, SP
 Sub_Immediate SP, 4
 Mov a, BP
 Add_Immediate a, 4
-Load_Word `, a
+Load_Word b, a
 Mov a, BP
 Sub_Immediate a, 2
-Store_Word a, `
+Store_Word a, b
 Mov a, BP
 Sub_Immediate a, 2
-Load_Word `, a
-Push `
+Load_Word b, a
+Push b
 Call putstr
 Add_Immediate SP, 2
-Mov `, a
-Load_Immediate `, 10
-Push `
+Mov b, a
+Load_Immediate b, 10
+Push b
 Call putchar
 Add_Immediate SP, 2
-Mov `, a
+Mov b, a
 Add_Immediate SP, 4
 Pop BP
 Ret
@@ -103,22 +145,22 @@ Mov BP, SP
 Sub_Immediate SP, 4
 Mov a, BP
 Add_Immediate a, 4
-Load_Word `, a
+Load_Word b, a
 Mov a, BP
 Sub_Immediate a, 2
-Store_Word a, `
+Store_Word a, b
 Mov a, BP
 Sub_Immediate a, 2
-Load_Word `, a
-Push `
+Load_Word b, a
+Push b
 Call putchar
 Add_Immediate SP, 2
-Mov `, a
-Load_Immediate `, 10
-Push `
+Mov b, a
+Load_Immediate b, 10
+Push b
 Call putchar
 Add_Immediate SP, 2
-Mov `, a
+Mov b, a
 Add_Immediate SP, 4
 Pop BP
 Ret
@@ -128,22 +170,22 @@ Mov BP, SP
 Sub_Immediate SP, 4
 Mov a, BP
 Add_Immediate a, 4
-Load_Word `, a
+Load_Word b, a
 Mov a, BP
 Sub_Immediate a, 2
-Store_Word a, `
+Store_Word a, b
 Mov a, BP
 Sub_Immediate a, 2
-Load_Word `, a
-Push `
+Load_Word b, a
+Push b
 Call putint
 Add_Immediate SP, 2
-Mov `, a
-Load_Immediate `, 10
-Push `
+Mov b, a
+Load_Immediate b, 10
+Push b
 Call putchar
 Add_Immediate SP, 2
-Mov `, a
+Mov b, a
 Add_Immediate SP, 4
 Pop BP
 Ret
@@ -155,4 +197,6 @@ Ret
 STRING "Hai"
 .symbolString1
 STRING "hack"
+.symbolString2
+STRING "Hack"
 

@@ -3,13 +3,17 @@ main () {
 	putstrln("Hai");
 	putcharln('r');
 	putintln(8);
-	putintln(charat("hack", 2));
+	putchar(charat("hack", 5));
+	strlen("Hack");
 }
 
 strlen (str) {
-	auto a;
-	a = 3;
-	putintln(charat(str, a));
+	auto c;
+	c = 0;
+	while (charat(str, c) != 0) {
+		c = c + 1;
+	}
+	putintln(c);
 }
 
 putstrln (str) {

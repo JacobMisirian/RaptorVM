@@ -15,7 +15,7 @@ namespace RaptorB.Parser
             else if (parser.MatchToken(TokenType.Identifier, "auto"))
                 return AutoNode.Parse(parser);
             else
-                return ExpressionNode.Parse(parser);
+                return ExpressionStatementNode.Parse(parser);
         }
 
         public override void Visit(IVisitor visitor)
