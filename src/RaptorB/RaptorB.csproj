@@ -59,6 +59,8 @@
     <Compile Include="Parser\Nodes\StringNode.cs" />
     <Compile Include="Lexer\Preprocessors.cs" />
     <Compile Include="Parser\Nodes\ExpressionStatementNode.cs" />
+    <Compile Include="Parser\Nodes\ReturnNode.cs" />
+    <Compile Include="Parser\Nodes\ForNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />

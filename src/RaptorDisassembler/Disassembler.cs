@@ -7,6 +7,8 @@ namespace RaptorDisassembler
     public class Disassembler
     {
         private BinaryReader reader;
+        private StringBuilder ret = new StringBuilder();
+
         public Disassembler(string path)
         {
             reader = new BinaryReader(new StreamReader(path).BaseStream);
@@ -14,49 +16,26 @@ namespace RaptorDisassembler
 
         public string Disassemble()
         {
-            StringBuilder ret = new StringBuilder();
             while (reader.BaseStream.Position < reader.BaseStream.Length)
             {
-                string op = OpCodes.ToString(reader.ReadByte());
-                ret.Append(op);
-
-                switch (op)
+                Instruction instruction = new Instruction(reader);
+                switch (instruction.OpCode)
                 {
-                    case "Add":
-                    case "Sub":
-                    case "Mul":
-                    case "Div":
-                    case "Mod":
-                    case "Mov":
-                        ret.Append("\t");
-                        ret.Append(getRegister(reader.ReadByte()));
-                        ret.Append(", ");
-                        ret.Append(getRegister(reader.ReadByte()));
-                        reader.ReadInt16();
-                        break;
-                    case "Load_Immediate":
-                        ret.Append("\t");
-                        ret.Append(getRegister(reader.ReadByte()));
-                        ret.Append(", ");
-                        reader.ReadByte();
-                        ret.Append(reader.ReadInt16());
-                        break;
-                    case "Print":
-                        ret.Append("\t");
-                        ret.Append(getRegister(reader.ReadByte()));
-                        reader.ReadByte();
-                        reader.ReadInt16();
+                    case OpCodes.Add:
+                    case OpCodes.Sub:
+                    case OpCodes.Mul:
+                    case OpCodes.Div:
+                    case OpCodes.Mod:
+                        append("{0}\t{1}, {2}", OpCodes.ToString(instruction.OpCode), instruction.OperandOne, instruction.OperandTwo);
                         break;
                 }
-                ret.Append("\n");
             }
             return ret.ToString();
         }
 
-        private char getRegister(byte b)
+        private void append(string str, params object[] args)
         {
-            return (char)(b + 96);
+            ret.AppendLine(string.Format(str, args));
         }
     }
 }
-

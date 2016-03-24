@@ -1,21 +1,29 @@
-main () {
-	putintln(7);
-	putstrln("Hai");
-	putcharln('r');
-	putintln(8);
-	putchar(charat("hack", 5));
-	strlen("Hack");
-}
-
 strlen (str) {
-	auto c;
-	c = 0;
-	while (charat(str, c) != 0) {
+	auto c; c = 0;
+	while (charat(str, c) > 0) {
 		c = c + 1;
 	}
-	putintln(c);
+
+	return c + 1;
 }
 
+strcat (str1, str2) {
+	auto result, len1, len2, counter;
+	result = "";
+	counter = 0;
+	len1 = strlen(str1);
+	len2 = strlen(str2);
+	while (counter < len1) {
+		ramwrite(result + counter, charat(str1, counter));
+		counter = counter + 1;
+	}
+	counter = 0;
+	while (counter < len2) {
+		ramwrite(result + len1 + counter, charat(str2, counter));
+		counter = counter + 1;
+	}
+	return result;
+}
 putstrln (str) {
 	putstr(str);
 	putchar(10);

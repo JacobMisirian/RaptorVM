@@ -14,6 +14,8 @@ namespace RaptorB.Parser
                 return WhileNode.Parse(parser);
             else if (parser.MatchToken(TokenType.Identifier, "auto"))
                 return AutoNode.Parse(parser);
+            else if (parser.MatchToken(TokenType.Identifier, "return"))
+                return ReturnNode.Parse(parser);
             else
                 return ExpressionStatementNode.Parse(parser);
         }

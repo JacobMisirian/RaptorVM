@@ -44,6 +44,10 @@ namespace RaptorB.SemanticAnalysis
             node.VisitChildren(this);
             result.PopScope();
         }
+        public void Accept(ForNode node)
+        {
+            node.VisitChildren(this);
+        }
         public void Accept(FunctionDeclarationNode node)
         {
             result.AddSymbol(node.Name);
@@ -61,6 +65,7 @@ namespace RaptorB.SemanticAnalysis
         public void Accept(FunctionCallNode node) {}
         public void Accept(ExpressionNode node) {}
         public void Accept(ExpressionStatementNode node) {}
+        public void Accept(ReturnNode node) {}
         public void Accept(StatementNode node) {}
         public void Accept(StringNode node) {}
         public void Accept(WhileNode node) {}

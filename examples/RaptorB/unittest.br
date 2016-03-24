@@ -1,0 +1,11 @@
+#include stdlib.br
+
+main () {
+        putintln(7);
+        putstrln("Hai");
+        putcharln('r');
+        putintln(8);
+        putintln(strlen("Hacky"));
+        putstrln(strcat("he", "llo"));
+}
+

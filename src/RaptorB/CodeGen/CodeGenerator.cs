@@ -13,6 +13,7 @@ namespace RaptorB.CodeGen
         private SymbolTable symbolTable;
         private StringBuilder result;
         private Dictionary<string, string> strings;
+        private string currentlyCompilingMethod = "";
 
         public CodeGenerator(AstNode ast, SymbolTable symbolTable)
         {
@@ -33,6 +34,8 @@ namespace RaptorB.CodeGen
             append(putint);
             append(putstr);
             append(charat);
+            append(ramwrite);
+            append(ramread);
             writeStrings();
             return result.ToString();
         }
@@ -179,6 +182,7 @@ namespace RaptorB.CodeGen
         }
         public void Accept(FunctionDeclarationNode node)
         {
+            currentlyCompilingMethod = node.Name;
             symbolTable.EnterScope();
             append(".{0}", node.Name);
             append("Push BP");
@@ -227,9 +231,9 @@ namespace RaptorB.CodeGen
             node.Body.Visit(this);
             popRegister();
         }
+        public void Accept(ForNode node) {} 
         public void Accept(FunctionCallNode node)
         {
-           // popRegister();
             node.Arguments.Visit(this);
             string call = ((IdentifierNode)node.Target).Identifier;
             append("Call {0}", call);
@@ -245,6 +249,16 @@ namespace RaptorB.CodeGen
         public void Accept(NumberNode node)
         {
             append("Load_Immediate {0}, {1}", pushRegister(), node.Number);
+        }
+        public void Accept(ReturnNode node)
+        {
+            node.Expression.Visit(this);
+            append("Mov a, {0}", popRegister());
+            symbolTable.PopScope();
+
+            append("Add_Immediate SP, {0}", 2 * symbolTable.GetGlobalIndex(currentlyCompilingMethod));
+            append("Pop BP");
+            append("Ret");
         }
         public void Accept(StatementNode node) {}
         public void Accept(StringNode node)
@@ -297,6 +311,8 @@ namespace RaptorB.CodeGen
         private const string putint = ".putint Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Print b Pop BP Ret";
         private const string putstr = ".putstr Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Call writeStr Pop BP Ret .writeStr Load_Byte a, b Print_Char a Cmp_Immediate a, 0 Inc b Jne writeStr Ret";
         private const string charat = ".charat Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Mov a, BP Add_Immediate a, 6 Load_Word a, a Add a, b Load_Word a, a Pop BP Ret";
+        private const string ramwrite = ".ramwrite Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Mov a, BP Add_Immediate a, 6 Load_Word a, a Store_Word b, a Pop BP Ret";
+        private const string ramread = ".ramread Push BP Mov BP, SP Mov a, BP Add_Immediate a, 4 Load_Word b, a Load_Word a, b Pop BP Ret";
 
         private int currentRegister = (int)'b';
 
