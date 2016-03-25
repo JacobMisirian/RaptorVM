@@ -231,7 +231,24 @@ namespace RaptorB.CodeGen
             node.Body.Visit(this);
             popRegister();
         }
-        public void Accept(ForNode node) {} 
+        public void Accept(ForNode node)
+        {
+            string forSymbol = generateSymbol();
+            string endSymbol = generateSymbol();
+            node.Predicate.Visit(this);
+            string register = getRegister();
+            append("And {0}, {1}", register, register);
+            popRegister();
+            append("Jne {0}", endSymbol);
+            append(".{0}", forSymbol);
+            node.Body.Visit(this);
+            node.EndStatement.Visit(this);
+            node.Predicate.Visit(this);
+            popRegister();
+            append("Je {0}", forSymbol);
+            append(".{0}", endSymbol);
+
+        }
         public void Accept(FunctionCallNode node)
         {
             node.Arguments.Visit(this);

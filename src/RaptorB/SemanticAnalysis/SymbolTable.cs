@@ -76,7 +76,7 @@ namespace RaptorB.SemanticAnalysis
             foreach (Scope scope in Scopes)
                 if (scope.Contains(symbol))
                     return scope.GetIndex(symbol);
-            return -1;
+            throw new Exception(string.Format("{0} does not exist in the current scope!", symbol));
         }
 
         public int GetGlobalIndex(string symbol)

@@ -2,11 +2,11 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="RaptorB/CodeGen/CodeGenerator.cs">
     <Files>
-      <File FileName="RaptorB/CodeGen/CodeGenerator.cs" Line="237" Column="38" />
-      <File FileName="RaptorB/Parser/Nodes/StatementNode.cs" Line="18" Column="43" />
-      <File FileName="RaptorB/Parser/Nodes/ExpressionStatementNode.cs" Line="18" Column="31" />
-      <File FileName="RaptorB/Parser/Nodes/CodeBlockNode.cs" Line="17" Column="1" />
-      <File FileName="RaptorB/SemanticAnalysis/SemanticAnalyzer.cs" Line="5" Column="1" />
+      <File FileName="RaptorB/CodeGen/CodeGenerator.cs" Line="1" Column="2" />
+      <File FileName="RaptorB/Parser/Nodes/ForNode.cs" Line="35" Column="66" />
+      <File FileName="RaptorB/Parser/Nodes/ConditionalNode.cs" Line="25" Column="1" />
+      <File FileName="RaptorB/Parser/IVisitor.cs" Line="18" Column="35" />
+      <File FileName="RaptorB/Parser/Nodes/StatementNode.cs" Line="15" Column="64" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,9 +15,7 @@
             <Node name="CodeGen" expanded="True">
               <Node name="CodeGenerator.cs" selected="True" />
             </Node>
-            <Node name="Parser" expanded="True">
-              <Node name="Nodes" expanded="True" />
-            </Node>
+            <Node name="Parser" expanded="True" />
             <Node name="SemanticAnalysis" expanded="True" />
           </Node>
         </State>
