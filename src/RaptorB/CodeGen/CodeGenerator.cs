@@ -271,7 +271,6 @@ namespace RaptorB.CodeGen
         {
             node.Expression.Visit(this);
             append("Mov a, {0}", popRegister());
-            symbolTable.PopScope();
 
             append("Add_Immediate SP, {0}", 2 * symbolTable.GetGlobalIndex(currentlyCompilingMethod));
             append("Pop BP");

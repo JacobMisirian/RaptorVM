@@ -61,13 +61,19 @@ namespace RaptorB.SemanticAnalysis
         public void Accept(IdentifierNode node) {}
         public void Accept(NumberNode node) {}
         public void Accept(CharNode node) {}
-        public void Accept(ConditionalNode node) {}
+        public void Accept(ConditionalNode node)
+        {
+            node.VisitChildren(this);
+        }
         public void Accept(FunctionCallNode node) {}
         public void Accept(ExpressionNode node) {}
         public void Accept(ExpressionStatementNode node) {}
         public void Accept(ReturnNode node) {}
         public void Accept(StatementNode node) {}
         public void Accept(StringNode node) {}
-        public void Accept(WhileNode node) {}
+        public void Accept(WhileNode node)
+        {
+            node.VisitChildren(this);
+        }
     }
 }

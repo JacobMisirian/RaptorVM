@@ -30,6 +30,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="RaptorASM">
+      <HintPath>..\RaptorASM\bin\Debug\RaptorASM.exe</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Parser\IVisitor.cs" />
@@ -61,10 +64,14 @@
     <Compile Include="Parser\Nodes\ExpressionStatementNode.cs" />
     <Compile Include="Parser\Nodes\ReturnNode.cs" />
     <Compile Include="Parser\Nodes\ForNode.cs" />
+    <Compile Include="Args\ConfigGenerator.cs" />
+    <Compile Include="Args\RaptorConfig.cs" />
+    <Compile Include="Args\ConfigInterpreter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
   <ItemGroup>
     <Folder Include="CodeGen\" />
+    <Folder Include="Args\" />
   </ItemGroup>
 </Project>
