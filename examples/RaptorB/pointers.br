@@ -1,0 +1,19 @@
+#include stdlib.br
+
+main () {
+	auto a, b; a = 8;
+	test (&a);
+	a = 9;
+	putintln(a);
+	b = &a;
+	putintln(b);
+	a = *b;
+	putintln(a);
+}
+
+// Takes in a pointer.
+test (a) {
+	// Sets b to dereference a.
+	auto b; b = *a;
+	putintln(b);
+}

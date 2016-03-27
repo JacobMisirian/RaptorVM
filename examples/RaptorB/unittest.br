@@ -7,5 +7,5 @@ main () {
         putintln(8);
         putintln(strlen("Hacky"));
         putstrln(strcat("he", "llo"));
+	putintln(strlen(numtostr(45)));
 }
-

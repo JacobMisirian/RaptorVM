@@ -6,4 +6,5 @@ main () {
 	putcharln(98);
 	newline();
 	newline();
+	putintln(indexof("Hai", 'a'));
 }
